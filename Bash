@@ -1,2 +1,0 @@
-git clone https://github.com/jpiti7/Fit33.git
-cd Fit33
