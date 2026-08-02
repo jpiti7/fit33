@@ -2,12 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 
-import { createClient } from "@/lib/supabase/server";
 import { saveWorkout } from "@/features/workouts/services/workout.service";
 import {
   workoutFormSchema,
   type WorkoutFormValues,
 } from "@/features/workouts/validations/workout.schema";
+import { createClient } from "@/lib/supabase/server";
 
 export type FinishWorkoutResult =
   | {
@@ -15,6 +15,7 @@ export type FinishWorkoutResult =
       workoutId: string;
       totalVolume: number;
       completedSets: number;
+      completedExercises: number;
       durationMinutes: number;
     }
   | {
@@ -28,7 +29,6 @@ export async function finishWorkoutAction(
 ): Promise<FinishWorkoutResult> {
   try {
     const validatedValues = workoutFormSchema.parse(values);
-
     const supabase = await createClient();
 
     const {
@@ -52,6 +52,7 @@ export async function finishWorkoutAction(
 
     revalidatePath("/");
     revalidatePath("/entrenos");
+    revalidatePath("/entrenos/historial");
     revalidatePath("/progreso");
 
     return {

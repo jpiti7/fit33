@@ -1,13 +1,22 @@
+/* eslint-disable react-hooks/incompatible-library */
 "use client";
 
-import { useMemo, useState } from "react";
+import Link from "next/link";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Clock3, Dumbbell, Save } from "lucide-react";
+import { CheckCircle2, Dumbbell, History, Home, Save } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  finishWorkoutAction,
+  type FinishWorkoutResult,
+} from "@/features/workouts/actions/workout.actions";
 import { ExerciseCard } from "@/features/workouts/components/ExerciseCard";
+import { SessionHeader } from "@/features/workouts/session/components/SessionHeader";
+import { useWorkoutSession } from "@/features/workouts/session/hooks/useWorkoutSession";
 import {
   workoutFormSchema,
   type WorkoutFormValues,
@@ -17,6 +26,8 @@ import type { WorkoutTemplate } from "@/types/workout";
 type WorkoutFormProps = {
   template: WorkoutTemplate;
 };
+
+type SavedWorkout = Extract<FinishWorkoutResult, { success: true }>;
 
 function createDefaultValues(template: WorkoutTemplate): WorkoutFormValues {
   return {
@@ -38,12 +49,13 @@ function createDefaultValues(template: WorkoutTemplate): WorkoutFormValues {
 }
 
 export function WorkoutForm({ template }: WorkoutFormProps) {
+  const router = useRouter();
   const defaultValues = useMemo(
     () => createDefaultValues(template),
     [template],
   );
-
   const [message, setMessage] = useState("");
+  const [savedWorkout, setSavedWorkout] = useState<SavedWorkout | null>(null);
 
   const {
     control,
@@ -51,11 +63,33 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
     handleSubmit,
     formState: { errors, isSubmitting },
     watch,
+    reset,
   } = useForm<WorkoutFormValues>({
     resolver: zodResolver(workoutFormSchema),
     defaultValues,
     mode: "onSubmit",
   });
+
+  const restoreForm = useCallback(
+    (values: WorkoutFormValues) => reset(values),
+    [reset],
+  );
+
+  const session = useWorkoutSession({
+    workoutType: template.type,
+    initialValues: defaultValues,
+    onRestore: restoreForm,
+  });
+
+  const updateLatestValues = session.updateLatestValues;
+
+  useEffect(() => {
+    const subscription = watch((values) => {
+      updateLatestValues(values as WorkoutFormValues);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [updateLatestValues, watch]);
 
   const exercises = watch("exercises");
 
@@ -73,26 +107,139 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
   const totalVolume = exercises.reduce(
     (exerciseTotal, exercise) =>
       exerciseTotal +
-      exercise.sets.reduce(
-        (setTotal, set) =>
-          setTotal + (Number(set.weight) || 0) * (Number(set.reps) || 0),
-        0,
-      ),
+      exercise.sets.reduce((setTotal, set) => {
+        if (!set.completed) {
+          return setTotal;
+        }
+
+        return setTotal + (Number(set.weight) || 0) * (Number(set.reps) || 0);
+      }, 0),
     0,
   );
 
   async function onSubmit(values: WorkoutFormValues) {
     setMessage("");
+    session.saveDraft(values);
 
-    console.log("Entrenamiento preparado:", values);
+    const result = await finishWorkoutAction(values, session.startedAt);
 
-    setMessage(
-      "Formulario validado correctamente. En el siguiente paso lo guardaremos en Supabase.",
+    if (!result.success) {
+      setMessage(result.message);
+      return;
+    }
+
+    session.completeSession();
+    setSavedWorkout(result);
+  }
+
+  function cancelWorkout() {
+    const confirmed = window.confirm(
+      "¿Seguro que quieres cancelar la sesión? Se perderá el borrador guardado.",
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    session.cancelSession();
+    router.push("/entrenos");
+  }
+
+  if (savedWorkout) {
+    return (
+      <Card className="border-emerald-400/30 bg-slate-900 text-white">
+        <CardHeader className="text-center">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-400/10">
+            <CheckCircle2 className="h-9 w-9 text-emerald-400" />
+          </div>
+
+          <CardTitle className="mt-4 text-3xl">
+            Entrenamiento guardado
+          </CardTitle>
+
+          <p className="mt-2 text-sm text-slate-400">
+            Tu sesión de {template.type} ya está en el historial.
+          </p>
+        </CardHeader>
+
+        <CardContent>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-xl bg-slate-950 p-4">
+              <p className="text-xs text-slate-500">Duración</p>
+              <p className="mt-1 text-xl font-bold">
+                {savedWorkout.durationMinutes} min
+              </p>
+            </div>
+
+            <div className="rounded-xl bg-slate-950 p-4">
+              <p className="text-xs text-slate-500">Ejercicios</p>
+              <p className="mt-1 text-xl font-bold">
+                {savedWorkout.completedExercises}
+              </p>
+            </div>
+
+            <div className="rounded-xl bg-slate-950 p-4">
+              <p className="text-xs text-slate-500">Series</p>
+              <p className="mt-1 text-xl font-bold">
+                {savedWorkout.completedSets}
+              </p>
+            </div>
+
+            <div className="rounded-xl bg-slate-950 p-4">
+              <p className="text-xs text-slate-500">Volumen</p>
+              <p className="mt-1 text-xl font-bold">
+                {savedWorkout.totalVolume.toLocaleString("es-ES")} kg
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <Link
+              href="/entrenos/historial"
+              className="inline-flex h-9 items-center justify-center rounded-lg bg-emerald-400 px-4 text-sm font-medium text-slate-950 transition hover:bg-emerald-300"
+            >
+              <History className="mr-2 h-4 w-4" />
+              Ver historial
+            </Link>
+
+            <Link
+              href="/"
+              className="inline-flex h-9 items-center justify-center rounded-lg border border-slate-700 bg-transparent px-4 text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
+            >
+              <Home className="mr-2 h-4 w-4" />
+              Volver al inicio
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!session.isReady) {
+    return (
+      <Card className="border-slate-800 bg-slate-900 text-white">
+        <CardContent className="py-10 text-center text-slate-400">
+          Preparando tu sesión...
+        </CardContent>
+      </Card>
     );
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <SessionHeader
+        elapsedSeconds={session.elapsedSeconds}
+        status={session.status}
+        remainingRestSeconds={session.remainingRestSeconds}
+        restDurationSeconds={session.restDurationSeconds}
+        onPause={session.pauseSession}
+        onResume={session.resumeSession}
+        onStartRest={() => session.startRest()}
+        onStopRest={session.stopRest}
+        onAddRestSeconds={session.addRestSeconds}
+        onCancel={cancelWorkout}
+      />
+
       <Card className="border-slate-800 bg-slate-900 text-white">
         <CardHeader>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -108,10 +255,11 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
               </p>
             </div>
 
-            <div className="flex w-fit items-center gap-2 rounded-full bg-slate-950 px-4 py-2 text-sm text-slate-300">
-              <Clock3 className="h-4 w-4 text-emerald-400" />
-              Sesión activa
-            </div>
+            <span className="w-fit rounded-full bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-400">
+              {session.status === "running"
+                ? "Sesión activa"
+                : "Sesión pausada"}
+            </span>
           </div>
         </CardHeader>
 
@@ -119,13 +267,11 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
           <div className="grid gap-3 sm:grid-cols-3">
             <div className="rounded-xl bg-slate-950 p-4">
               <p className="text-xs text-slate-500">Ejercicios</p>
-
               <p className="mt-1 text-xl font-bold">{exercises.length}</p>
             </div>
 
             <div className="rounded-xl bg-slate-950 p-4">
               <p className="text-xs text-slate-500">Series completadas</p>
-
               <p className="mt-1 text-xl font-bold">
                 {completedSets} / {totalSets}
               </p>
@@ -133,7 +279,6 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
 
             <div className="rounded-xl bg-slate-950 p-4">
               <p className="text-xs text-slate-500">Volumen provisional</p>
-
               <p className="mt-1 text-xl font-bold">
                 {totalVolume.toLocaleString("es-ES")} kg
               </p>
@@ -153,6 +298,7 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
             name={exercise.name}
             muscleGroup={exercise.muscleGroup}
             targetReps={exercise.targetReps}
+            onSetCompleted={() => session.startRest()}
           />
         ))}
       </div>
@@ -177,7 +323,7 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
           )}
 
           {message && (
-            <div className="mt-5 rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-300">
+            <div className="mt-5 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
               {message}
             </div>
           )}
@@ -187,9 +333,17 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
             disabled={isSubmitting}
             className="mt-6 w-full bg-emerald-400 text-slate-950 hover:bg-emerald-300"
           >
-            <Save className="mr-2 h-4 w-4" />
-
-            {isSubmitting ? "Procesando..." : "Finalizar entrenamiento"}
+            {isSubmitting ? (
+              <>
+                <Dumbbell className="mr-2 h-4 w-4 animate-pulse" />
+                Guardando entrenamiento...
+              </>
+            ) : (
+              <>
+                <Save className="mr-2 h-4 w-4" />
+                Finalizar entrenamiento
+              </>
+            )}
           </Button>
         </CardContent>
       </Card>

@@ -44,6 +44,13 @@ export default function TrainingsPage() {
           <p className="mt-2 text-slate-400">
             Tu rutina semanal de cuatro días.
           </p>
+
+          <Link
+            href="/entrenos/historial"
+            className="mt-5 inline-flex rounded-xl border border-slate-700 px-4 py-2 text-sm font-semibold text-slate-300 transition hover:border-emerald-400 hover:text-emerald-400"
+          >
+            Ver historial
+          </Link>
         </header>
 
         <section className="mt-8 grid gap-4 sm:grid-cols-2">

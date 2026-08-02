@@ -27,6 +27,7 @@ type ExerciseCardProps = {
   name: string;
   muscleGroup: string;
   targetReps: string;
+  onSetCompleted?: () => void;
 };
 
 export function ExerciseCard({
@@ -37,6 +38,7 @@ export function ExerciseCard({
   name,
   muscleGroup,
   targetReps,
+  onSetCompleted,
 }: ExerciseCardProps) {
   const { fields, append, remove } = useFieldArray({
     control,
@@ -72,8 +74,6 @@ export function ExerciseCard({
 
       <CardContent>
         <div className="mb-2 grid grid-cols-[40px_1fr_1fr_1fr_42px_40px] gap-2 text-center text-xs font-semibold uppercase tracking-wide text-slate-500">
-          {" "}
-          <span>Serie</span>
           <span>Serie</span>
           <span>Kg</span>
           <span>Reps</span>
@@ -93,6 +93,7 @@ export function ExerciseCard({
               errors={errors}
               canDelete={fields.length > 1}
               onDelete={() => remove(setIndex)}
+              onCompleted={onSetCompleted}
             />
           ))}
         </div>

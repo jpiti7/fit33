@@ -1,6 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import {
+  deleteWorkout,
   insertExercise,
   insertSets,
   insertWorkout,
@@ -17,6 +18,7 @@ export type WorkoutSaveResult = {
   workoutId: string;
   totalVolume: number;
   completedSets: number;
+  completedExercises: number;
   durationMinutes: number;
 };
 
@@ -25,16 +27,22 @@ export async function saveWorkout(
   input: SaveWorkoutInput,
 ): Promise<WorkoutSaveResult> {
   const finishedAt = new Date();
-
   const startedTime = new Date(input.startedAt).getTime();
-  const finishedTime = finishedAt.getTime();
+
+  if (!Number.isFinite(startedTime)) {
+    throw new Error("La hora de inicio del entrenamiento no es válida.");
+  }
 
   const durationMinutes = Math.max(
     1,
-    Math.round((finishedTime - startedTime) / 60_000),
+    Math.round((finishedAt.getTime() - startedTime) / 60_000),
   );
 
-  const completedSets = input.values.exercises.reduce(
+  const completedExercises = input.values.exercises.filter((exercise) =>
+    exercise.sets.some((set) => set.completed),
+  );
+
+  const completedSets = completedExercises.reduce(
     (total, exercise) =>
       total + exercise.sets.filter((set) => set.completed).length,
     0,
@@ -46,7 +54,7 @@ export async function saveWorkout(
     );
   }
 
-  const totalVolume = input.values.exercises.reduce(
+  const totalVolume = completedExercises.reduce(
     (exerciseTotal, exercise) =>
       exerciseTotal +
       exercise.sets.reduce((setTotal, set) => {
@@ -68,37 +76,41 @@ export async function saveWorkout(
     notes: input.values.notes?.trim() || null,
   });
 
-  for (const exercise of input.values.exercises) {
-    const completedExerciseSets = exercise.sets.filter((set) => set.completed);
+  try {
+    for (const exercise of completedExercises) {
+      const completedExerciseSets = exercise.sets.filter(
+        (set) => set.completed,
+      );
 
-    if (completedExerciseSets.length === 0) {
-      continue;
+      const savedExercise = await insertExercise(supabase, {
+        workoutId: workout.id,
+        exerciseName: exercise.name,
+        exerciseOrder: exercise.order,
+        muscleGroup: exercise.muscleGroup,
+      });
+
+      await insertSets(
+        supabase,
+        completedExerciseSets.map((set, setIndex) => ({
+          exerciseId: savedExercise.id,
+          setNumber: setIndex + 1,
+          weight: set.weight,
+          reps: set.reps,
+          rir: set.rir,
+          completed: true,
+        })),
+      );
     }
-
-    const savedExercise = await insertExercise(supabase, {
-      workoutId: workout.id,
-      exerciseName: exercise.name,
-      exerciseOrder: exercise.order,
-      muscleGroup: exercise.muscleGroup,
-    });
-
-    await insertSets(
-      supabase,
-      completedExerciseSets.map((set, setIndex) => ({
-        exerciseId: savedExercise.id,
-        setNumber: setIndex + 1,
-        weight: set.weight,
-        reps: set.reps,
-        rir: set.rir,
-        completed: true,
-      })),
-    );
+  } catch (error) {
+    await deleteWorkout(supabase, workout.id);
+    throw error;
   }
 
   return {
     workoutId: workout.id,
     totalVolume,
     completedSets,
+    completedExercises: completedExercises.length,
     durationMinutes,
   };
 }

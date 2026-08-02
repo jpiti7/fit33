@@ -95,3 +95,143 @@ export async function insertSets(
     throw new Error(`No se pudieron guardar las series: ${error.message}`);
   }
 }
+
+export async function deleteWorkout(
+  supabase: SupabaseClient,
+  workoutId: string,
+) {
+  const { error } = await supabase
+    .from("workouts")
+    .delete()
+    .eq("id", workoutId);
+
+  if (error) {
+    throw new Error(
+      `No se pudo revertir el entrenamiento incompleto: ${error.message}`,
+    );
+  }
+}
+
+export async function listWorkouts(supabase: SupabaseClient, limit = 20) {
+  const { data, error } = await supabase
+    .from("workouts")
+    .select(
+      `
+        id,
+        workout_type,
+        started_at,
+        finished_at,
+        duration,
+        notes,
+        exercises (
+          id,
+          exercise_name,
+          muscle_group,
+          exercise_order,
+          sets (
+            id,
+            set_number,
+            weight,
+            reps,
+            rir,
+            completed
+          )
+        )
+      `,
+    )
+    .eq("completed", true)
+    .order("started_at", { ascending: false })
+    .limit(limit);
+
+  if (error) {
+    throw new Error(`No se pudo cargar el historial: ${error.message}`);
+  }
+
+  return data ?? [];
+}
+
+export async function getWorkoutById(
+  supabase: SupabaseClient,
+  workoutId: string,
+) {
+  const { data, error } = await supabase
+    .from("workouts")
+    .select(
+      `
+        id,
+        workout_type,
+        started_at,
+        finished_at,
+        duration,
+        notes,
+        exercises (
+          id,
+          exercise_name,
+          muscle_group,
+          exercise_order,
+          sets (
+            id,
+            set_number,
+            weight,
+            reps,
+            rir,
+            completed
+          )
+        )
+      `,
+    )
+    .eq("id", workoutId)
+    .eq("completed", true)
+    .single();
+
+  if (error) {
+    throw new Error(`No se pudo cargar el entrenamiento: ${error.message}`);
+  }
+
+  return data;
+}
+
+export async function getPreviousWorkoutOfType(
+  supabase: SupabaseClient,
+  workoutType: string,
+  startedAt: string,
+) {
+  const { data, error } = await supabase
+    .from("workouts")
+    .select(
+      `
+        id,
+        workout_type,
+        started_at,
+        finished_at,
+        duration,
+        notes,
+        exercises (
+          id,
+          exercise_name,
+          muscle_group,
+          exercise_order,
+          sets (
+            id,
+            set_number,
+            weight,
+            reps,
+            rir,
+            completed
+          )
+        )
+      `,
+    )
+    .eq("workout_type", workoutType)
+    .eq("completed", true)
+    .lt("started_at", startedAt)
+    .order("started_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(`No se pudo cargar la sesión anterior: ${error.message}`);
+  }
+
+  return data;
+}

@@ -20,6 +20,7 @@ type SetRowProps = {
   errors: FieldErrors<WorkoutFormValues>;
   canDelete: boolean;
   onDelete: () => void;
+  onCompleted?: () => void;
 };
 
 export function SetRow({
@@ -30,6 +31,7 @@ export function SetRow({
   errors,
   canDelete,
   onDelete,
+  onCompleted,
 }: SetRowProps) {
   const setErrors = errors.exercises?.[exerciseIndex]?.sets?.[setIndex];
 
@@ -51,7 +53,6 @@ export function SetRow({
           })}
           className="border-slate-700 bg-slate-950 text-white"
         />
-
         {setErrors?.weight?.message && (
           <p className="mt-1 text-xs text-red-400">
             {setErrors.weight.message}
@@ -70,7 +71,6 @@ export function SetRow({
           })}
           className="border-slate-700 bg-slate-950 text-white"
         />
-
         {setErrors?.reps?.message && (
           <p className="mt-1 text-xs text-red-400">{setErrors.reps.message}</p>
         )}
@@ -88,7 +88,6 @@ export function SetRow({
           })}
           className="border-slate-700 bg-slate-950 text-white"
         />
-
         {setErrors?.rir?.message && (
           <p className="mt-1 text-xs text-red-400">{setErrors.rir.message}</p>
         )}
@@ -102,7 +101,13 @@ export function SetRow({
             type="button"
             aria-label={`Marcar serie ${setIndex + 1} como completada`}
             aria-pressed={field.value}
-            onClick={() => field.onChange(!field.value)}
+            onClick={() => {
+              const nextValue = !field.value;
+              field.onChange(nextValue);
+              if (nextValue) {
+                onCompleted?.();
+              }
+            }}
             className={`flex h-10 w-10 items-center justify-center rounded-md border text-sm font-bold transition ${
               field.value
                 ? "border-emerald-400 bg-emerald-400 text-slate-950"
