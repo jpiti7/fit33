@@ -20,6 +20,11 @@ const navigationItems = [
     icon: "▥",
   },
   {
+    label: "Coach",
+    href: "/coach",
+    icon: "✦",
+  },
+  {
     label: "Nutrición",
     href: "/nutricion",
     icon: "◉",

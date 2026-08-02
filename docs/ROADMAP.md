@@ -165,3 +165,12 @@ Estado: completado
 - v0.9.3 Récords personales avanzados.
 - v0.9.4 Comparador por ejercicio.
 - v0.9.5 Coach Fit33 v1.
+
+## Sprint 1.0.1 — Coach Fit33
+
+Estado: implementado
+
+- Motor de reglas independiente.
+- Informe semanal.
+- Próxima sesión recomendada.
+- Integración con Dashboard.

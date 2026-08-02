@@ -61,3 +61,7 @@ npm run build
 - `docs`: documentación.
 
 - Historial profesional de sesiones con detalle y comparación.
+
+## Coach Fit33
+
+El motor de reglas analiza adherencia, frecuencia, volumen, progresión, peso y recuperación para generar recomendaciones accionables.

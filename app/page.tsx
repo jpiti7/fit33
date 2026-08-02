@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { DashboardData } from "@/components/dashboard/dashboard-data";
+import { CoachOverview, getCoachReportAction } from "@/features/coach";
 import {
   DashboardTrainingOverview,
   getDashboardTrainingDataAction,
@@ -8,11 +9,18 @@ import {
 
 export default async function Home() {
   let trainingData = null;
+  let coachReport = null;
 
   try {
     trainingData = await getDashboardTrainingDataAction();
   } catch (error) {
     console.error("No se pudo cargar el Dashboard PRO:", error);
+  }
+
+  try {
+    coachReport = await getCoachReportAction();
+  } catch (error) {
+    console.error("No se pudo cargar Coach Fit33:", error);
   }
 
   return (
@@ -56,6 +64,12 @@ export default async function Home() {
             No se pudieron cargar las métricas de entrenamiento. El seguimiento
             corporal sigue disponible.
           </section>
+        )}
+
+        {coachReport && (
+          <div className="mb-8">
+            <CoachOverview report={coachReport} compact />
+          </div>
         )}
 
         <DashboardData />
