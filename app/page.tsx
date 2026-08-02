@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { DashboardData } from "@/components/dashboard-data";
+import { DashboardData } from "@/components/dashboard/dashboard-data";
 
 export default function Home() {
   return (

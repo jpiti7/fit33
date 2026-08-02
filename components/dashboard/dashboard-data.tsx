@@ -2,19 +2,12 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { WeightHistory } from "@/components/weight-history";
+import { WeightHistory } from "@/components/charts/weight-history";
+import type { WeightLog } from "@/types/weight-log";
+import { PROFILE } from "@/constants/profile";
 
-type WeightLog = {
-  id: string;
-  created_at: string;
-  weight: number;
-  waist: number | null;
-  body_fat: number | null;
-  notes: string | null;
-};
-
-const START_WEIGHT = 82;
-const TARGET_WEIGHT = 75;
+const START_WEIGHT = PROFILE.startWeightKg;
+const TARGET_WEIGHT = PROFILE.targetWeightKg;
 
 function formatNumber(value: number, decimals = 1) {
   return new Intl.NumberFormat("es-ES", {
@@ -48,7 +41,7 @@ export function DashboardData() {
         const { data, error } = await supabase
           .from("weight_logs")
           .select(
-            "id, created_at, weight, waist, body_fat, notes",
+            "id, user_id, created_at, weight, waist, body_fat, notes",
           )
           .order("created_at", { ascending: false })
           .limit(30);

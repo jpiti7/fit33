@@ -1,3 +1,5 @@
+import { logout } from "@/app/login/actions";
+
 const profileData = [
   { label: "Nombre", value: "Jesús" },
   { label: "Edad", value: "28 años" },
@@ -16,7 +18,9 @@ export default function ProfilePage() {
             Fit33
           </p>
 
-          <h1 className="mt-2 text-3xl font-bold">Perfil</h1>
+          <h1 className="mt-2 text-3xl font-bold">
+            Perfil
+          </h1>
 
           <p className="mt-2 text-slate-400">
             Información personal y configuración del plan.
@@ -33,18 +37,32 @@ export default function ProfilePage() {
                   : ""
               }`}
             >
-              <span className="text-sm text-slate-400">{item.label}</span>
-              <span className="text-right font-semibold">{item.value}</span>
+              <span className="text-sm text-slate-400">
+                {item.label}
+              </span>
+
+              <span className="text-right font-semibold">
+                {item.value}
+              </span>
             </div>
           ))}
         </section>
 
         <button
           type="button"
-          className="mt-6 rounded-xl border border-slate-700 px-5 py-3 font-semibold text-slate-300 transition hover:border-emerald-400 hover:text-emerald-400"
+          className="mt-6 w-full rounded-xl border border-slate-700 px-5 py-3 font-semibold text-slate-300 transition hover:border-emerald-400 hover:text-emerald-400"
         >
           Editar perfil
         </button>
+
+        <form action={logout} className="mt-4">
+          <button
+            type="submit"
+            className="w-full rounded-xl border border-red-500/40 bg-red-500/5 px-5 py-3 font-semibold text-red-300 transition hover:bg-red-500/10"
+          >
+            Cerrar sesión
+          </button>
+        </form>
       </div>
     </main>
   );

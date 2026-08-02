@@ -10,14 +10,7 @@ import {
   YAxis,
 } from "recharts";
 
-type WeightLog = {
-  id: string;
-  created_at: string;
-  weight: number;
-  waist: number | null;
-  body_fat: number | null;
-  notes: string | null;
-};
+import type { WeightLog } from "@/types/weight-log";
 
 type WeightHistoryProps = {
   logs: WeightLog[];

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { WeightForm } from "@/components/weight-form";
+import { WeightForm } from "@/components/forms/weight-form";
 
 export default function RegisterWeightPage() {
   return (

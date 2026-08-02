@@ -60,12 +60,24 @@ export function WeightForm() {
     try {
       const supabase = createClient();
 
-      const { error } = await supabase.from("weight_logs").insert({
-        weight: parsedWeight,
-        waist: parsedWaist,
-        body_fat: parsedBodyFat,
-        notes: notes.trim() || null,
-      });
+const {
+  data: { user },
+  error: userError,
+} = await supabase.auth.getUser();
+
+if (userError || !user) {
+  throw new Error(
+    "Tu sesión no es válida. Cierra sesión y vuelve a entrar.",
+  );
+}
+
+const { error } = await supabase.from("weight_logs").insert({
+  user_id: user.id,
+  weight: parsedWeight,
+  waist: parsedWaist,
+  body_fat: parsedBodyFat,
+  notes: notes.trim() || null,
+});
 
       if (error) {
         throw error;

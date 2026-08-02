@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { BottomNavigation } from "@/components/bottom-navigation";
+import { BottomNavigation } from "@/components/layout/bottom-navigation";
 
 export const metadata: Metadata = {
   title: "Fit33",
