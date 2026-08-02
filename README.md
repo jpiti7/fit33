@@ -8,6 +8,8 @@ Versión preparada: `v0.8.2`
 
 ### Funcionalidades disponibles
 
+- Dashboard PRO con métricas semanales y Coach Fit33.
+
 - Autenticación y rutas protegidas.
 - Datos privados por usuario mediante RLS.
 - Registro de peso, cintura y grasa corporal.

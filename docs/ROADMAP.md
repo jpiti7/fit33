@@ -150,9 +150,18 @@ Estado: completado
 - Referencias de rendimiento.
 - Estimación de 1RM.
 
+### v0.9.2 — Dashboard PRO
+
+Estado: completado
+
+- Métricas semanales en Inicio.
+- Comparación con la semana anterior.
+- Foco muscular.
+- Marcas recientes.
+- Coach Fit33 basado en reglas.
+
 ### Próximos pasos
 
-- v0.9.2 Dashboard PRO.
 - v0.9.3 Récords personales avanzados.
 - v0.9.4 Comparador por ejercicio.
 - v0.9.5 Coach Fit33 v1.

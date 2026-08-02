@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.9.2]
+
+### Added
+
+- Dashboard PRO integrado en la página de inicio.
+- Resumen semanal de sesiones, volumen, duración y series.
+- Comparaciones con la semana anterior.
+- Foco muscular y marcas recientes.
+- Primeras recomendaciones automáticas del Coach Fit33.
+- Accesos directos a entrenamiento y analíticas.
+
 ## [0.9.1]
 
 ### Added
