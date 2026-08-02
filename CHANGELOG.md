@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.1]
+
+### Added
+
+- Módulo base de nutrición.
+- Registro diario de comidas con calorías, proteína, hidratos, grasas y fibra.
+- Resumen diario frente a objetivos personales.
+- Agrupación de registros por tipo de comida.
+- Eliminación segura de registros nutricionales.
+- Tablas `foods`, `nutrition_logs` y `meal_templates` con RLS por usuario.
+- Pruebas unitarias para el cálculo de totales nutricionales.
+
 ## [0.9.2]
 
 ### Added

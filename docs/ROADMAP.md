@@ -174,3 +174,21 @@ Estado: implementado
 - Informe semanal.
 - Próxima sesión recomendada.
 - Integración con Dashboard.
+
+## Milestone 7 — Nutrición
+
+Estado: en desarrollo
+
+### v1.1.1 — Base nutricional
+
+- Registro de comidas.
+- Calorías y macronutrientes.
+- Resumen diario.
+- Seguridad RLS por usuario.
+
+### Próximos sprints
+
+- Objetivos configurables.
+- Catálogo de alimentos.
+- Plantillas y planificación semanal.
+- Integración con Coach Fit33.

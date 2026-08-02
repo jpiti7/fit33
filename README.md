@@ -4,7 +4,7 @@ Aplicación personal de entrenamiento, nutrición y seguimiento corporal constru
 
 ## Estado
 
-Versión preparada: `v0.8.2`
+Versión preparada: `v1.1.1`
 
 ### Funcionalidades disponibles
 
@@ -18,6 +18,8 @@ Versión preparada: `v0.8.2`
 - Registro completo de entrenamientos en Supabase.
 - Historial de sesiones.
 - Workout Session Manager con cronómetro, descanso automático y autosave.
+- Registro diario de comidas con calorías y macronutrientes.
+- Resumen nutricional diario frente a objetivos personales.
 - ESLint, Prettier, Husky y GitHub Actions.
 
 ## Instalación
@@ -65,3 +67,8 @@ npm run build
 ## Coach Fit33
 
 El motor de reglas analiza adherencia, frecuencia, volumen, progresión, peso y recuperación para generar recomendaciones accionables.
+
+## Nutrición
+
+- Registro diario de nutrición.
+- Control de calorías, proteína, hidratos, grasas y fibra.
