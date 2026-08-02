@@ -1,25 +1,30 @@
+import Link from "next/link";
 const trainingDays = [
   {
     day: "Lunes",
     name: "Push",
+    slug: "push",
     muscles: "Pecho, hombro y tríceps",
     exercises: 7,
   },
   {
     day: "Martes",
     name: "Pierna A",
+    slug: "pierna-a",
     muscles: "Cuádriceps, femoral y gemelos",
-    exercises: 7,
+    exercises: 6,
   },
   {
     day: "Jueves",
     name: "Pull",
+    slug: "pull",
     muscles: "Espalda y bíceps",
     exercises: 7,
   },
   {
     day: "Viernes",
     name: "Pierna B + hombro",
+    slug: "pierna-b-hombro",
     muscles: "Glúteo, femoral y deltoides",
     exercises: 7,
   },
@@ -53,9 +58,7 @@ export default function TrainingsPage() {
                     {training.day}
                   </p>
 
-                  <h2 className="mt-1 text-2xl font-bold">
-                    {training.name}
-                  </h2>
+                  <h2 className="mt-1 text-2xl font-bold">{training.name}</h2>
                 </div>
 
                 <span className="rounded-full bg-slate-950 px-3 py-1 text-sm text-slate-400">
@@ -63,16 +66,14 @@ export default function TrainingsPage() {
                 </span>
               </div>
 
-              <p className="mt-3 text-sm text-slate-400">
-                {training.muscles}
-              </p>
+              <p className="mt-3 text-sm text-slate-400">{training.muscles}</p>
 
-              <button
-                type="button"
-                className="mt-6 w-full rounded-xl bg-emerald-400 px-4 py-3 font-semibold text-slate-950 transition hover:bg-emerald-300"
+              <Link
+                href={`/entrenos/${training.slug}`}
+                className="mt-6 block w-full rounded-xl bg-emerald-400 px-4 py-3 text-center font-semibold text-slate-950 transition hover:bg-emerald-300"
               >
-                Ver entrenamiento
-              </button>
+                Comenzar entrenamiento
+              </Link>
             </article>
           ))}
         </section>

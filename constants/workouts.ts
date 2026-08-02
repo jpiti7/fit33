@@ -194,7 +194,5 @@ export const WORKOUT_TEMPLATES: WorkoutTemplate[] = [
 ];
 
 export function getWorkoutTemplate(type: string) {
-  return WORKOUT_TEMPLATES.find(
-    (workout) => workout.type === type,
-  );
+  return WORKOUT_TEMPLATES.find((workout) => workout.type === type);
 }

@@ -20,9 +20,7 @@ export default async function RegisterPage({
             Fit33
           </p>
 
-          <h1 className="mt-3 text-3xl font-bold">
-            Crear cuenta
-          </h1>
+          <h1 className="mt-3 text-3xl font-bold">Crear cuenta</h1>
 
           <p className="mt-2 text-sm text-slate-400">
             Crea tu perfil para guardar tus datos de forma segura.
@@ -78,10 +76,7 @@ export default async function RegisterPage({
 
         <p className="mt-6 text-center text-sm text-slate-400">
           ¿Ya tienes cuenta?{" "}
-          <Link
-            href="/login"
-            className="font-semibold text-emerald-400"
-          >
+          <Link href="/login" className="font-semibold text-emerald-400">
             Iniciar sesión
           </Link>
         </p>

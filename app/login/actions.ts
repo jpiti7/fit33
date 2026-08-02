@@ -19,9 +19,7 @@ export async function login(formData: FormData) {
   });
 
   if (error) {
-    redirect(
-      `/login?error=${encodeURIComponent(error.message)}`,
-    );
+    redirect(`/login?error=${encodeURIComponent(error.message)}`);
   }
 
   redirect("/");
@@ -36,9 +34,7 @@ export async function signup(formData: FormData) {
   }
 
   if (password.length < 6) {
-    redirect(
-      "/registro?error=La contraseña debe tener al menos 6 caracteres",
-    );
+    redirect("/registro?error=La contraseña debe tener al menos 6 caracteres");
   }
 
   const supabase = await createClient();
@@ -49,9 +45,7 @@ export async function signup(formData: FormData) {
   });
 
   if (error) {
-    redirect(
-      `/registro?error=${encodeURIComponent(error.message)}`,
-    );
+    redirect(`/registro?error=${encodeURIComponent(error.message)}`);
   }
 
   redirect(

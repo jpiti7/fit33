@@ -1,8 +1,4 @@
-    export type WorkoutType =
-  | "Push"
-  | "Pierna A"
-  | "Pull"
-  | "Pierna B + hombro";
+export type WorkoutType = "Push" | "Pierna A" | "Pull" | "Pierna B + hombro";
 
 export type WorkoutSetInput = {
   setNumber: number;

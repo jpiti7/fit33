@@ -21,13 +21,9 @@ export function WeightForm() {
 
     const parsedWeight = Number(weight.replace(",", "."));
 
-    const parsedWaist = waist
-      ? Number(waist.replace(",", "."))
-      : null;
+    const parsedWaist = waist ? Number(waist.replace(",", ".")) : null;
 
-    const parsedBodyFat = bodyFat
-      ? Number(bodyFat.replace(",", "."))
-      : null;
+    const parsedBodyFat = bodyFat ? Number(bodyFat.replace(",", ".")) : null;
 
     if (!Number.isFinite(parsedWeight) || parsedWeight <= 0) {
       setHasError(true);
@@ -60,24 +56,24 @@ export function WeightForm() {
     try {
       const supabase = createClient();
 
-const {
-  data: { user },
-  error: userError,
-} = await supabase.auth.getUser();
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
 
-if (userError || !user) {
-  throw new Error(
-    "Tu sesión no es válida. Cierra sesión y vuelve a entrar.",
-  );
-}
+      if (userError || !user) {
+        throw new Error(
+          "Tu sesión no es válida. Cierra sesión y vuelve a entrar.",
+        );
+      }
 
-const { error } = await supabase.from("weight_logs").insert({
-  user_id: user.id,
-  weight: parsedWeight,
-  waist: parsedWaist,
-  body_fat: parsedBodyFat,
-  notes: notes.trim() || null,
-});
+      const { error } = await supabase.from("weight_logs").insert({
+        user_id: user.id,
+        weight: parsedWeight,
+        waist: parsedWaist,
+        body_fat: parsedBodyFat,
+        notes: notes.trim() || null,
+      });
 
       if (error) {
         throw error;
@@ -114,9 +110,7 @@ const { error } = await supabase.from("weight_logs").insert({
       className="rounded-2xl border border-slate-800 bg-slate-900 p-6"
     >
       <div>
-        <p className="text-sm font-semibold text-emerald-400">
-          Nuevo registro
-        </p>
+        <p className="text-sm font-semibold text-emerald-400">Nuevo registro</p>
 
         <h2 className="mt-1 text-2xl font-bold text-white">
           Registra tu progreso
@@ -151,9 +145,7 @@ const { error } = await supabase.from("weight_logs").insert({
         </label>
 
         <label className="block">
-          <span className="text-sm font-medium text-slate-300">
-            Cintura
-          </span>
+          <span className="text-sm font-medium text-slate-300">Cintura</span>
 
           <div className="relative mt-2">
             <input

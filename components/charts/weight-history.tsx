@@ -39,12 +39,10 @@ function formatNumber(value: number) {
 }
 
 export function WeightHistory({ logs }: WeightHistoryProps) {
-  const chartData = [...logs]
-    .reverse()
-    .map((log) => ({
-      date: formatDate(log.created_at),
-      weight: log.weight,
-    }));
+  const chartData = [...logs].reverse().map((log) => ({
+    date: formatDate(log.created_at),
+    weight: log.weight,
+  }));
 
   if (logs.length === 0) {
     return null;
@@ -78,10 +76,7 @@ export function WeightHistory({ logs }: WeightHistoryProps) {
                   bottom: 0,
                 }}
               >
-                <CartesianGrid
-                  strokeDasharray="4 4"
-                  stroke="#1e293b"
-                />
+                <CartesianGrid strokeDasharray="4 4" stroke="#1e293b" />
 
                 <XAxis
                   dataKey="date"
@@ -134,20 +129,13 @@ export function WeightHistory({ logs }: WeightHistoryProps) {
       </article>
 
       <article className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-        <p className="text-sm text-slate-400">
-          Últimos registros
-        </p>
+        <p className="text-sm text-slate-400">Últimos registros</p>
 
-        <h2 className="mt-1 text-xl font-bold text-white">
-          Historial
-        </h2>
+        <h2 className="mt-1 text-xl font-bold text-white">Historial</h2>
 
         <div className="mt-6 max-h-72 space-y-3 overflow-y-auto pr-1">
           {logs.map((log) => (
-            <div
-              key={log.id}
-              className="rounded-xl bg-slate-950 p-4"
-            >
+            <div key={log.id} className="rounded-xl bg-slate-950 p-4">
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="font-semibold text-white">
@@ -162,9 +150,7 @@ export function WeightHistory({ logs }: WeightHistoryProps) {
                 <div className="text-right text-xs text-slate-400">
                   <p>
                     Cintura:{" "}
-                    {log.waist !== null
-                      ? `${formatNumber(log.waist)} cm`
-                      : "—"}
+                    {log.waist !== null ? `${formatNumber(log.waist)} cm` : "—"}
                   </p>
 
                   <p className="mt-1">

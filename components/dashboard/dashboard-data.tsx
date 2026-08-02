@@ -40,9 +40,7 @@ export function DashboardData() {
 
         const { data, error } = await supabase
           .from("weight_logs")
-          .select(
-            "id, user_id, created_at, weight, waist, body_fat, notes",
-          )
+          .select("id, user_id, created_at, weight, waist, body_fat, notes")
           .order("created_at", { ascending: false })
           .limit(30);
 
@@ -54,8 +52,7 @@ export function DashboardData() {
           ...log,
           weight: Number(log.weight),
           waist: log.waist === null ? null : Number(log.waist),
-          body_fat:
-            log.body_fat === null ? null : Number(log.body_fat),
+          body_fat: log.body_fat === null ? null : Number(log.body_fat),
         })) as WeightLog[];
 
         setLogs(parsedLogs);
@@ -87,25 +84,17 @@ export function DashboardData() {
     const totalToLose = START_WEIGHT - TARGET_WEIGHT;
     const lostWeight = START_WEIGHT - latestLog.weight;
 
-    return Math.min(
-      100,
-      Math.max(0, (lostWeight / totalToLose) * 100),
-    );
+    return Math.min(100, Math.max(0, (lostWeight / totalToLose) * 100));
   }, [latestLog]);
 
-  const weightLost = latestLog
-    ? START_WEIGHT - latestLog.weight
-    : 0;
+  const weightLost = latestLog ? START_WEIGHT - latestLog.weight : 0;
 
   const averageWeight = useMemo(() => {
     if (logs.length === 0) {
       return null;
     }
 
-    const total = logs.reduce(
-      (sum, log) => sum + log.weight,
-      0,
-    );
+    const total = logs.reduce((sum, log) => sum + log.weight, 0);
 
     return total / logs.length;
   }, [logs]);
@@ -113,9 +102,7 @@ export function DashboardData() {
   if (isLoading) {
     return (
       <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-        <p className="text-slate-400">
-          Cargando tus datos...
-        </p>
+        <p className="text-slate-400">Cargando tus datos...</p>
       </section>
     );
   }
@@ -127,9 +114,7 @@ export function DashboardData() {
           No se pudo cargar el dashboard
         </p>
 
-        <p className="mt-2 text-sm text-red-200">
-          {errorMessage}
-        </p>
+        <p className="mt-2 text-sm text-red-200">{errorMessage}</p>
       </section>
     );
   }
@@ -185,17 +170,11 @@ export function DashboardData() {
             key={stat.label}
             className="rounded-2xl border border-slate-800 bg-slate-900 p-5 shadow-lg"
           >
-            <p className="text-sm text-slate-400">
-              {stat.label}
-            </p>
+            <p className="text-sm text-slate-400">{stat.label}</p>
 
-            <p className="mt-2 text-2xl font-bold text-white">
-              {stat.value}
-            </p>
+            <p className="mt-2 text-2xl font-bold text-white">{stat.value}</p>
 
-            <p className="mt-2 text-sm text-slate-500">
-              {stat.detail}
-            </p>
+            <p className="mt-2 text-sm text-slate-500">{stat.detail}</p>
           </article>
         ))}
       </section>
@@ -204,9 +183,7 @@ export function DashboardData() {
         <article className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <p className="text-sm text-slate-400">
-                Progreso de peso
-              </p>
+              <p className="text-sm text-slate-400">Progreso de peso</p>
 
               <h2 className="mt-1 text-xl font-bold text-white">
                 Objetivo de recomposición
@@ -239,9 +216,7 @@ export function DashboardData() {
 
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             <div className="rounded-xl bg-slate-950 p-4">
-              <p className="text-xs text-slate-500">
-                Último registro
-              </p>
+              <p className="text-xs text-slate-500">Último registro</p>
 
               <p className="mt-1 font-bold text-white">
                 {formatDate(latestLog.created_at)}
@@ -249,9 +224,7 @@ export function DashboardData() {
             </div>
 
             <div className="rounded-xl bg-slate-950 p-4">
-              <p className="text-xs text-slate-500">
-                Media registrada
-              </p>
+              <p className="text-xs text-slate-500">Media registrada</p>
 
               <p className="mt-1 font-bold text-white">
                 {averageWeight !== null
@@ -261,15 +234,10 @@ export function DashboardData() {
             </div>
 
             <div className="rounded-xl bg-slate-950 p-4">
-              <p className="text-xs text-slate-500">
-                Faltan
-              </p>
+              <p className="text-xs text-slate-500">Faltan</p>
 
               <p className="mt-1 font-bold text-white">
-                {formatNumber(
-                  Math.max(0, latestLog.weight - TARGET_WEIGHT),
-                )}{" "}
-                kg
+                {formatNumber(Math.max(0, latestLog.weight - TARGET_WEIGHT))} kg
               </p>
             </div>
           </div>
@@ -290,9 +258,7 @@ export function DashboardData() {
 
           <div className="mt-6 space-y-3">
             <div className="flex items-center justify-between rounded-xl bg-slate-950 px-4 py-3">
-              <span className="text-sm text-slate-400">
-                Cintura
-              </span>
+              <span className="text-sm text-slate-400">Cintura</span>
 
               <span className="font-semibold text-white">
                 {latestLog.waist !== null
@@ -302,9 +268,7 @@ export function DashboardData() {
             </div>
 
             <div className="flex items-center justify-between rounded-xl bg-slate-950 px-4 py-3">
-              <span className="text-sm text-slate-400">
-                Grasa
-              </span>
+              <span className="text-sm text-slate-400">Grasa</span>
 
               <span className="font-semibold text-white">
                 {latestLog.body_fat !== null
@@ -314,9 +278,7 @@ export function DashboardData() {
             </div>
 
             <div className="rounded-xl bg-slate-950 px-4 py-3">
-              <p className="text-sm text-slate-400">
-                Observaciones
-              </p>
+              <p className="text-sm text-slate-400">Observaciones</p>
 
               <p className="mt-1 text-sm text-white">
                 {latestLog.notes || "Sin observaciones"}
@@ -325,7 +287,7 @@ export function DashboardData() {
           </div>
         </article>
       </section>
-    <WeightHistory logs={logs} />
+      <WeightHistory logs={logs} />
     </div>
   );
 }

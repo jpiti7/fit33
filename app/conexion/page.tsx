@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 export default function ConnectionPage() {
-  const [status, setStatus] = useState(
-    "Comprobando conexión...",
-  );
+  const [status, setStatus] = useState("Comprobando conexión...");
 
   useEffect(() => {
     async function checkConnection() {
@@ -31,9 +29,7 @@ export default function ConnectionPage() {
             return;
           }
 
-          setStatus(
-            `Supabase respondió: ${error.message}`,
-          );
+          setStatus(`Supabase respondió: ${error.message}`);
           return;
         }
 
@@ -57,9 +53,7 @@ export default function ConnectionPage() {
           Fit33
         </p>
 
-        <h1 className="mt-2 text-3xl font-bold">
-          Conexión con Supabase
-        </h1>
+        <h1 className="mt-2 text-3xl font-bold">Conexión con Supabase</h1>
 
         <div className="mt-8 rounded-2xl border border-slate-800 bg-slate-900 p-6">
           <p className="text-slate-300">{status}</p>

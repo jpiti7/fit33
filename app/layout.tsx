@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { BottomNavigation } from "@/components/layout/bottom-navigation";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Fit33",
@@ -13,13 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" className={cn("font-sans", geist.variable)}>
       <body className="bg-slate-950 antialiased">
         <BottomNavigation />
 
-        <div className="min-h-screen pb-24 md:pb-0 md:pl-64">
-          {children}
-        </div>
+        <div className="min-h-screen pb-24 md:pb-0 md:pl-64">{children}</div>
       </body>
     </html>
   );

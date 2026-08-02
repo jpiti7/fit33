@@ -18,9 +18,7 @@ export default function ProfilePage() {
             Fit33
           </p>
 
-          <h1 className="mt-2 text-3xl font-bold">
-            Perfil
-          </h1>
+          <h1 className="mt-2 text-3xl font-bold">Perfil</h1>
 
           <p className="mt-2 text-slate-400">
             Información personal y configuración del plan.
@@ -37,13 +35,9 @@ export default function ProfilePage() {
                   : ""
               }`}
             >
-              <span className="text-sm text-slate-400">
-                {item.label}
-              </span>
+              <span className="text-sm text-slate-400">{item.label}</span>
 
-              <span className="text-right font-semibold">
-                {item.value}
-              </span>
+              <span className="text-right font-semibold">{item.value}</span>
             </div>
           ))}
         </section>

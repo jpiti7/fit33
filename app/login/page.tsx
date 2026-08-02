@@ -8,9 +8,7 @@ type LoginPageProps = {
   }>;
 };
 
-export default async function LoginPage({
-  searchParams,
-}: LoginPageProps) {
+export default async function LoginPage({ searchParams }: LoginPageProps) {
   const params = await searchParams;
 
   return (
@@ -21,9 +19,7 @@ export default async function LoginPage({
             Fit33
           </p>
 
-          <h1 className="mt-3 text-3xl font-bold">
-            Iniciar sesión
-          </h1>
+          <h1 className="mt-3 text-3xl font-bold">Iniciar sesión</h1>
 
           <p className="mt-2 text-sm text-slate-400">
             Accede a tu entrenamiento y progreso.
@@ -84,10 +80,7 @@ export default async function LoginPage({
 
         <p className="mt-6 text-center text-sm text-slate-400">
           ¿Aún no tienes cuenta?{" "}
-          <Link
-            href="/registro"
-            className="font-semibold text-emerald-400"
-          >
+          <Link href="/registro" className="font-semibold text-emerald-400">
             Crear cuenta
           </Link>
         </p>

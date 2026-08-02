@@ -38,16 +38,10 @@ export async function updateSession(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
 
-  const publicRoutes = [
-    "/login",
-    "/registro",
-    "/auth",
-    "/conexion",
-  ];
+  const publicRoutes = ["/login", "/registro", "/auth", "/conexion"];
 
   const isPublicRoute = publicRoutes.some(
-    (route) =>
-      pathname === route || pathname.startsWith(`${route}/`),
+    (route) => pathname === route || pathname.startsWith(`${route}/`),
   );
 
   if (!user && !isPublicRoute) {
@@ -57,10 +51,7 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  if (
-    user &&
-    (pathname === "/login" || pathname === "/registro")
-  ) {
+  if (user && (pathname === "/login" || pathname === "/registro")) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
 

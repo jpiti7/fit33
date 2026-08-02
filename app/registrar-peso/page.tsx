@@ -17,9 +17,7 @@ export default function RegisterWeightPage() {
             Fit33
           </p>
 
-          <h1 className="mt-2 text-3xl font-bold">
-            Registrar progreso
-          </h1>
+          <h1 className="mt-2 text-3xl font-bold">Registrar progreso</h1>
 
           <p className="mt-2 text-slate-400">
             Guarda tu peso, cintura y porcentaje de grasa corporal.

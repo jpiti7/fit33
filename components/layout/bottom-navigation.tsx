@@ -70,9 +70,7 @@ export function BottomNavigation() {
             Fit33
           </p>
 
-          <h2 className="mt-3 text-2xl font-bold text-white">
-            Tu progreso
-          </h2>
+          <h2 className="mt-3 text-2xl font-bold text-white">Tu progreso</h2>
         </div>
 
         <nav className="mt-10 space-y-2">
