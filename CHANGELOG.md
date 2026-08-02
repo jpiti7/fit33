@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.9.1]
+
+### Added
+
+- Motor analítico de entrenamientos.
+- Comparación semanal de sesiones, volumen y duración.
+- Resumen mensual.
+- Distribución por grupo muscular.
+- Referencias de rendimiento y 1RM estimado.
+- Página `/analiticas`.
+
 ## [0.8.3]
 
 ### Added
