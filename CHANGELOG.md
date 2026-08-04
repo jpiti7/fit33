@@ -137,3 +137,13 @@
 ### Added
 
 - Autenticación y aislamiento de datos por usuario mediante RLS.
+
+## [3.1.0]
+
+### Added
+
+- Generador semanal de menús adaptado a objetivos, alergias y preferencias.
+- Recetas con cantidades, macros y preparación.
+- Lista de la compra automática, agrupada y editable.
+- Persistencia de menús y listas mediante Supabase con RLS.
+- Tests unitarios del planificador nutricional.

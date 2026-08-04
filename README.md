@@ -65,3 +65,15 @@ npm run dev
 ## Límites actuales
 
 El Coach conversacional usa reglas deterministas y no envía datos a servicios externos. Las notificaciones programadas en segundo plano requieren una futura integración Web Push. Apple Health requiere una aplicación nativa o un puente específico.
+
+## Menús y lista de la compra
+
+Fit33 v3.1.0 incorpora:
+
+- planificador semanal en `/nutricion/planificador`;
+- menús de 4 o 5 comidas adaptados a objetivos y preferencias;
+- recetas con cantidades, macros y preparación;
+- lista automática en `/nutricion/lista-compra`;
+- persistencia privada en Supabase mediante RLS.
+
+Antes de usar el módulo debe ejecutarse `database/migrations/007_meal_planner.sql`.
