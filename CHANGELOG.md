@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.2]
+
+### Added
+
+- Modo offline para finalizar entrenamientos.
+- Cola persistente con IndexedDB.
+- Sincronización automática al recuperar conexión.
+- Service worker y página `/offline`.
+- Indicador global de conexión y pendientes.
+- Idempotencia mediante `client_id`.
+- Test de deduplicación de la cola offline.
+
 ## [1.2.1]
 
 ### Added

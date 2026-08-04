@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { BottomNavigation } from "@/components/layout/bottom-navigation";
+import { OfflineManager } from "@/components/offline/offline-manager";
+import { ServiceWorkerRegister } from "@/components/pwa/service-worker-register";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 
@@ -45,6 +47,8 @@ export default function RootLayout({
   return (
     <html lang="es" className={cn("font-sans", geist.variable)}>
       <body className="bg-slate-950 antialiased">
+        <ServiceWorkerRegister />
+        <OfflineManager />
         <BottomNavigation />
 
         <div className="min-h-screen pb-24 md:pb-0 md:pl-64">{children}</div>

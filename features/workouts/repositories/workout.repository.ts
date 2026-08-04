@@ -7,6 +7,7 @@ type CreateWorkoutInput = {
   finishedAt: string;
   duration: number;
   notes: string | null;
+  clientId: string;
 };
 
 type CreateExerciseInput = {
@@ -25,6 +26,25 @@ type CreateSetInput = {
   completed: boolean;
 };
 
+export async function getWorkoutByClientId(
+  supabase: SupabaseClient,
+  userId: string,
+  clientId: string,
+) {
+  const { data, error } = await supabase
+    .from("workouts")
+    .select("id, duration")
+    .eq("user_id", userId)
+    .eq("client_id", clientId)
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(`No se pudo comprobar la sincronización: ${error.message}`);
+  }
+
+  return data;
+}
+
 export async function insertWorkout(
   supabase: SupabaseClient,
   input: CreateWorkoutInput,
@@ -39,6 +59,7 @@ export async function insertWorkout(
       duration: input.duration,
       completed: true,
       notes: input.notes,
+      client_id: input.clientId,
     })
     .select("id")
     .single();

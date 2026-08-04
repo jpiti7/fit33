@@ -26,6 +26,7 @@ export type FinishWorkoutResult =
 export async function finishWorkoutAction(
   values: WorkoutFormValues,
   startedAt: string,
+  clientId = crypto.randomUUID(),
 ): Promise<FinishWorkoutResult> {
   try {
     const validatedValues = workoutFormSchema.parse(values);
@@ -48,6 +49,7 @@ export async function finishWorkoutAction(
       userId: user.id,
       startedAt,
       values: validatedValues,
+      clientId,
     });
 
     revalidatePath("/");

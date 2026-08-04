@@ -2,6 +2,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 import {
   deleteWorkout,
+  getWorkoutByClientId,
   insertExercise,
   insertSets,
   insertWorkout,
@@ -12,6 +13,7 @@ type SaveWorkoutInput = {
   userId: string;
   startedAt: string;
   values: WorkoutFormValues;
+  clientId: string;
 };
 
 export type WorkoutSaveResult = {
@@ -54,6 +56,31 @@ export async function saveWorkout(
     );
   }
 
+  const existingWorkout = await getWorkoutByClientId(
+    supabase,
+    input.userId,
+    input.clientId,
+  );
+
+  if (existingWorkout) {
+    return {
+      workoutId: existingWorkout.id,
+      totalVolume: completedExercises.reduce(
+        (exerciseTotal, exercise) =>
+          exerciseTotal +
+          exercise.sets.reduce(
+            (setTotal, set) =>
+              set.completed ? setTotal + set.weight * set.reps : setTotal,
+            0,
+          ),
+        0,
+      ),
+      completedSets,
+      completedExercises: completedExercises.length,
+      durationMinutes: existingWorkout.duration ?? durationMinutes,
+    };
+  }
+
   const totalVolume = completedExercises.reduce(
     (exerciseTotal, exercise) =>
       exerciseTotal +
@@ -74,6 +101,7 @@ export async function saveWorkout(
     finishedAt: finishedAt.toISOString(),
     duration: durationMinutes,
     notes: input.values.notes?.trim() || null,
+    clientId: input.clientId,
   });
 
   try {

@@ -4,7 +4,14 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckCircle2, Dumbbell, History, Home, Save } from "lucide-react";
+import {
+  CheckCircle2,
+  CloudOff,
+  Dumbbell,
+  History,
+  Home,
+  Save,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
@@ -21,13 +28,16 @@ import {
   workoutFormSchema,
   type WorkoutFormValues,
 } from "@/features/workouts/validations/workout.schema";
+import { enqueueWorkout } from "@/lib/offline/queue";
 import type { WorkoutTemplate } from "@/types/workout";
 
 type WorkoutFormProps = {
   template: WorkoutTemplate;
 };
 
-type SavedWorkout = Extract<FinishWorkoutResult, { success: true }>;
+type SavedWorkout = Extract<FinishWorkoutResult, { success: true }> & {
+  queued?: boolean;
+};
 
 function createDefaultValues(template: WorkoutTemplate): WorkoutFormValues {
   return {
@@ -121,15 +131,88 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
     setMessage("");
     session.saveDraft(values);
 
-    const result = await finishWorkoutAction(values, session.startedAt);
+    const completedExercisesList = values.exercises.filter((exercise) =>
+      exercise.sets.some((set) => set.completed),
+    );
+    const localCompletedSets = completedExercisesList.reduce(
+      (total, exercise) =>
+        total + exercise.sets.filter((set) => set.completed).length,
+      0,
+    );
 
-    if (!result.success) {
-      setMessage(result.message);
+    if (localCompletedSets === 0) {
+      setMessage(
+        "Marca al menos una serie como completada antes de finalizar.",
+      );
       return;
     }
 
-    session.completeSession();
-    setSavedWorkout(result);
+    const localTotalVolume = completedExercisesList.reduce(
+      (exerciseTotal, exercise) =>
+        exerciseTotal +
+        exercise.sets.reduce(
+          (setTotal, set) =>
+            set.completed ? setTotal + set.weight * set.reps : setTotal,
+          0,
+        ),
+      0,
+    );
+    const localDurationMinutes = Math.max(
+      1,
+      Math.round(session.elapsedSeconds / 60),
+    );
+    const clientId = crypto.randomUUID();
+
+    async function saveOffline() {
+      await enqueueWorkout({
+        clientId,
+        startedAt: session.startedAt,
+        values,
+      });
+      session.completeSession();
+      setSavedWorkout({
+        success: true,
+        queued: true,
+        workoutId: clientId,
+        totalVolume: localTotalVolume,
+        completedSets: localCompletedSets,
+        completedExercises: completedExercisesList.length,
+        durationMinutes: localDurationMinutes,
+      });
+    }
+
+    if (!navigator.onLine) {
+      try {
+        await saveOffline();
+      } catch {
+        setMessage("No se pudo guardar el entrenamiento en el dispositivo.");
+      }
+      return;
+    }
+
+    try {
+      const result = await finishWorkoutAction(
+        values,
+        session.startedAt,
+        clientId,
+      );
+
+      if (!result.success) {
+        setMessage(result.message);
+        return;
+      }
+
+      session.completeSession();
+      setSavedWorkout(result);
+    } catch {
+      try {
+        await saveOffline();
+      } catch {
+        setMessage(
+          "No se pudo conectar ni guardar el entrenamiento en el dispositivo.",
+        );
+      }
+    }
   }
 
   function cancelWorkout() {
@@ -150,15 +233,23 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
       <Card className="border-emerald-400/30 bg-slate-900 text-white">
         <CardHeader className="text-center">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-400/10">
-            <CheckCircle2 className="h-9 w-9 text-emerald-400" />
+            {savedWorkout.queued ? (
+              <CloudOff className="h-9 w-9 text-emerald-400" />
+            ) : (
+              <CheckCircle2 className="h-9 w-9 text-emerald-400" />
+            )}
           </div>
 
           <CardTitle className="mt-4 text-3xl">
-            Entrenamiento guardado
+            {savedWorkout.queued
+              ? "Entrenamiento guardado offline"
+              : "Entrenamiento guardado"}
           </CardTitle>
 
           <p className="mt-2 text-sm text-slate-400">
-            Tu sesión de {template.type} ya está en el historial.
+            {savedWorkout.queued
+              ? "La sesión está segura en tu iPhone y se sincronizará automáticamente cuando vuelva Internet."
+              : `Tu sesión de ${template.type} ya está en el historial.`}
           </p>
         </CardHeader>
 
