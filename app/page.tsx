@@ -1,103 +1,12 @@
-import Link from "next/link";
-
-import { DashboardData } from "@/components/dashboard/dashboard-data";
-import { CoachOverview, getCoachReportAction } from "@/features/coach";
-import {
-  DashboardTrainingOverview,
-  getDashboardTrainingDataAction,
-} from "@/features/dashboard";
+import { getTodayDataAction, TodayOverview } from "@/features/today";
 
 export default async function Home() {
-  let trainingData = null;
-  let coachReport = null;
-
-  try {
-    trainingData = await getDashboardTrainingDataAction();
-  } catch (error) {
-    console.error("No se pudo cargar el Dashboard PRO:", error);
-  }
-
-  try {
-    coachReport = await getCoachReportAction();
-  } catch (error) {
-    console.error("No se pudo cargar Coach Fit33:", error);
-  }
+  const data = await getTodayDataAction();
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-400">
-              Fit33
-            </p>
-
-            <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
-              Buenos días, Jesús
-            </h1>
-
-            <p className="mt-2 text-slate-400">
-              Continúa avanzando hacia tu mejor versión.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/entrenos"
-              className="rounded-xl border border-slate-700 px-5 py-3 text-center font-semibold text-slate-200 transition hover:border-emerald-400 hover:text-emerald-400"
-            >
-              Entrenar ahora
-            </Link>
-            <Link
-              href="/registrar-peso"
-              className="rounded-xl bg-emerald-400 px-5 py-3 text-center font-semibold text-slate-950 transition hover:bg-emerald-300"
-            >
-              Registrar peso
-            </Link>
-          </div>
-        </header>
-
-        {trainingData ? (
-          <DashboardTrainingOverview data={trainingData} />
-        ) : (
-          <section className="mb-8 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5 text-sm text-amber-200">
-            No se pudieron cargar las métricas de entrenamiento. El seguimiento
-            corporal sigue disponible.
-          </section>
-        )}
-
-        {coachReport && (
-          <div className="mb-8">
-            <CoachOverview report={coachReport} compact />
-          </div>
-        )}
-
-        <section className="mb-8 grid gap-4 sm:grid-cols-2">
-          <Link
-            href="/logros"
-            className="rounded-3xl border border-slate-800 bg-slate-900 p-5 transition hover:border-emerald-400/40"
-          >
-            <p className="text-sm font-semibold text-emerald-300">Fit33 v2</p>
-            <h2 className="mt-2 text-xl font-bold">Logros y nivel</h2>
-            <p className="mt-2 text-sm text-slate-400">
-              Convierte la constancia y la progresión en objetivos visibles.
-            </p>
-          </Link>
-          <Link
-            href="/progreso/fotos"
-            className="rounded-3xl border border-slate-800 bg-slate-900 p-5 transition hover:border-emerald-400/40"
-          >
-            <p className="text-sm font-semibold text-emerald-300">
-              Progreso visual
-            </p>
-            <h2 className="mt-2 text-xl font-bold">Fotos privadas</h2>
-            <p className="mt-2 text-sm text-slate-400">
-              Construye una línea temporal visual protegida por tu cuenta.
-            </p>
-          </Link>
-        </section>
-
-        <DashboardData />
+    <main className="min-h-screen bg-slate-950 px-4 py-6 text-white sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
+        <TodayOverview data={data} />
       </div>
     </main>
   );

@@ -1,5 +1,25 @@
 # Changelog
 
+## [3.0.0]
+
+### Added
+
+- Pantalla Hoy contextual con entrenamiento, nutrición, hidratación, Coach y XP.
+- Coach conversacional privado basado en reglas y datos reales.
+- Planificador semanal automático.
+- Registro diario de agua.
+- Objetivos y preferencias persistentes por usuario.
+- Configuración y prueba local de notificaciones web.
+- Nuevas rutas `/coach/chat`, `/planificacion` y `/perfil/notificaciones`.
+- Migración `006_v3_platform.sql` con políticas RLS.
+- Tests del planificador y del Coach conversacional.
+
+### Notes
+
+- El chat no usa todavía un proveedor externo de IA.
+- Las notificaciones programadas con la app cerrada necesitan Web Push.
+- Apple Health requiere una integración nativa, no disponible directamente desde una PWA.
+
 ## [2.0.0]
 
 ### Added

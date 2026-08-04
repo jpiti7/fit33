@@ -1,3 +1,24 @@
+# Roadmap Fit33
+
+## v3.0.0 — Intelligence Platform
+
+- [x] Pantalla Hoy.
+- [x] Coach conversacional basado en reglas.
+- [x] Planificador semanal.
+- [x] Hidratación.
+- [x] Objetivos por usuario.
+- [x] Preferencias de notificaciones.
+- [x] PWA, offline, nutrición, fotos y logros.
+
+## Próximos bloques
+
+- [ ] Web Push con backend y claves VAPID.
+- [ ] Proveedor opcional de IA con consentimiento y límites de coste.
+- [ ] Comparador visual de fotos.
+- [ ] Editor completo de preferencias.
+- [ ] Aplicación nativa para Apple Health.
+- [ ] Internacionalización.
+
 # Roadmap de Fit33
 
 ## Visión

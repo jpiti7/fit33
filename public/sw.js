@@ -1,5 +1,5 @@
 /* global self, caches, URL, fetch */
-const CACHE_NAME = "fit33-v1.2.2";
+const CACHE_NAME = "fit33-v3.0.0";
 const APP_SHELL = ["/offline", "/instalar", "/icons/icon-192.png", "/icons/icon-512.png"];
 
 self.addEventListener("install", (event) => {
@@ -49,4 +49,17 @@ self.addEventListener("fetch", (event) => {
       }),
     );
   }
+});
+
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const target = event.notification.data?.url || "/";
+  event.waitUntil(
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then((windows) => {
+      const existing = windows.find((client) => client.url.includes(target));
+      if (existing) return existing.focus();
+      return clients.openWindow(target);
+    }),
+  );
 });

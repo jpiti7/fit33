@@ -1,26 +1,25 @@
 # Fit33
 
-Aplicación personal de entrenamiento, nutrición y seguimiento corporal construida con Next.js, TypeScript y Supabase.
+Fit33 es una PWA personal de entrenamiento, nutrición, progreso corporal y asistencia inteligente, construida con Next.js, TypeScript y Supabase.
 
-## Estado
+## Versión
 
-Versión preparada: `v1.1.1`
+`v3.0.0`
 
-### Funcionalidades disponibles
+## Funcionalidades
 
-- Dashboard PRO con métricas semanales y Coach Fit33.
-
-- Autenticación y rutas protegidas.
-- Datos privados por usuario mediante RLS.
-- Registro de peso, cintura y grasa corporal.
-- Dashboard, historial y gráfica de peso.
-- Rutinas Push, Pull, Pierna A y Pierna B + hombro.
-- Registro completo de entrenamientos en Supabase.
-- Historial de sesiones.
-- Workout Session Manager con cronómetro, descanso automático y autosave.
-- Registro diario de comidas con calorías y macronutrientes.
-- Resumen nutricional diario frente a objetivos personales.
-- ESLint, Prettier, Husky y GitHub Actions.
+- Autenticación y aislamiento de datos mediante RLS.
+- Registro de peso, cintura, grasa corporal y fotos privadas.
+- Rutinas, sesiones, cronómetro, descansos, autosave y modo offline.
+- Historial, analíticas, marcas personales, logros, nivel y XP.
+- Nutrición diaria con calorías y macronutrientes.
+- Hidratación diaria.
+- Pantalla Hoy contextual.
+- Planificador semanal automático.
+- Coach Fit33 con informe y conversación basada en reglas.
+- PWA instalable en iPhone.
+- Preferencias de notificaciones web.
+- Vitest, ESLint, Prettier, Husky y GitHub Actions.
 
 ## Instalación
 
@@ -37,49 +36,32 @@ NEXT_PUBLIC_SUPABASE_URL=TU_URL
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=TU_CLAVE
 ```
 
-Ejecuta:
+Ejecuta las migraciones SQL en orden, incluida:
 
-```bash
-npm run dev
+```text
+database/migrations/006_v3_platform.sql
 ```
 
-## Scripts
+Después:
 
 ```bash
-npm run dev
-npm run lint
-npm run typecheck
-npm run format:check
+npm run quality
 npm run build
+npm run dev
 ```
 
-## Estructura
+## Rutas principales
 
-- `app`: rutas y páginas.
-- `components`: interfaz compartida.
-- `features`: módulos funcionales.
-- `database`: migraciones SQL.
-- `lib`: infraestructura y Supabase.
-- `docs`: documentación.
+- `/` — Hoy
+- `/entrenos` — Entrenamientos
+- `/planificacion` — Plan semanal
+- `/coach` — Informe del Coach
+- `/coach/chat` — Conversación con el Coach
+- `/nutricion` — Nutrición
+- `/progreso` — Progreso
+- `/logros` — Logros
+- `/perfil/notificaciones` — Preferencias de avisos
 
-- Historial profesional de sesiones con detalle y comparación.
+## Límites actuales
 
-## Coach Fit33
-
-El motor de reglas analiza adherencia, frecuencia, volumen, progresión, peso y recuperación para generar recomendaciones accionables.
-
-## Nutrición
-
-- Registro diario de nutrición.
-- Control de calorías, proteína, hidratos, grasas y fibra.
-
-## Experiencia móvil
-
-Desde la versión `v1.2.3`, Fit33 incorpora navegación adaptada a iPhone, controles táctiles ampliados, modo de entrenamiento inmersivo, respuesta háptica compatible y Wake Lock opcional.
-
-## Fit33 v2.0.0
-
-- Coach semanal mejorado.
-- Logros, nivel y puntos.
-- Fotos privadas de progreso.
-- Rutas `/logros` y `/progreso/fotos`.
+El Coach conversacional usa reglas deterministas y no envía datos a servicios externos. Las notificaciones programadas en segundo plano requieren una futura integración Web Push. Apple Health requiere una aplicación nativa o un puente específico.

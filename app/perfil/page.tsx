@@ -52,6 +52,13 @@ export default function ProfilePage() {
         </button>
 
         <Link
+          href="/perfil/notificaciones"
+          className="mt-4 block w-full rounded-xl border border-violet-400/40 bg-violet-400/5 px-5 py-3 text-center font-semibold text-violet-300 transition hover:bg-violet-400/10"
+        >
+          Configurar notificaciones
+        </Link>
+
+        <Link
           href="/instalar"
           className="mt-4 block w-full rounded-xl border border-emerald-400/40 bg-emerald-400/5 px-5 py-3 text-center font-semibold text-emerald-300 transition hover:bg-emerald-400/10"
         >

@@ -11,6 +11,8 @@ import {
   TrendingUp,
   Trophy,
   Camera,
+  CalendarDays,
+  MessageCircle,
   UserRound,
   type LucideIcon,
 } from "lucide-react";
@@ -26,9 +28,11 @@ const navigationItems: NavigationItem[] = [
   { label: "Inicio", href: "/", icon: House, mobile: true },
   { label: "Entrenos", href: "/entrenos", icon: Dumbbell, mobile: true },
   { label: "Análisis", href: "/analiticas", icon: BarChart3 },
-  { label: "Coach", href: "/coach", icon: Bot, mobile: true },
+  { label: "Coach", href: "/coach/chat", icon: MessageCircle, mobile: true },
   { label: "Nutrición", href: "/nutricion", icon: Apple, mobile: true },
   { label: "Progreso", href: "/progreso", icon: TrendingUp },
+  { label: "Plan", href: "/planificacion", icon: CalendarDays },
+  { label: "Coach informe", href: "/coach", icon: Bot },
   { label: "Logros", href: "/logros", icon: Trophy },
   { label: "Fotos", href: "/progreso/fotos", icon: Camera },
   { label: "Perfil", href: "/perfil", icon: UserRound, mobile: true },
@@ -87,7 +91,7 @@ export function BottomNavigation() {
           <h2 className="mt-3 text-2xl font-bold text-white">Tu progreso</h2>
         </div>
 
-        <nav className="mt-10 space-y-2">
+        <nav className="mt-10 max-h-[calc(100vh-12rem)] space-y-2 overflow-y-auto pb-28">
           {navigationItems.map((item) => {
             const active = isItemActive(pathname, item.href);
             const Icon = item.icon;
