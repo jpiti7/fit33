@@ -39,5 +39,11 @@ export type CoachReport = {
     slug: string;
     reason: string;
   };
+  weeklyBrief: {
+    volume: number;
+    durationMinutes: number;
+    completedSets: number;
+    strongestExercise: string | null;
+  };
   recommendations: CoachRecommendation[];
 };

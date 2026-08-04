@@ -3,7 +3,10 @@ import {
   BrainCircuit,
   CalendarCheck2,
   ChevronRight,
+  Clock3,
+  Dumbbell,
   Gauge,
+  Layers3,
   Target,
 } from "lucide-react";
 
@@ -26,6 +29,7 @@ export function CoachOverview({
   const recommendations = compact
     ? report.recommendations.slice(0, 3)
     : report.recommendations;
+
   return (
     <section className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-3">
@@ -62,6 +66,40 @@ export function CoachOverview({
           </CardContent>
         </Card>
       </div>
+
+      {!compact && (
+        <Card className="border-emerald-400/20 bg-gradient-to-br from-emerald-400/10 to-slate-900 text-white">
+          <CardHeader>
+            <CardTitle>Informe de la semana</CardTitle>
+            <p className="text-sm text-slate-400">
+              Un resumen directo para decidir el siguiente paso.
+            </p>
+          </CardHeader>
+          <CardContent className="grid gap-3 sm:grid-cols-3">
+            <div className="rounded-2xl bg-slate-950/70 p-4">
+              <Dumbbell className="h-5 w-5 text-emerald-300" />
+              <p className="mt-3 text-xs text-slate-500">Volumen</p>
+              <p className="mt-1 text-xl font-bold">
+                {report.weeklyBrief.volume.toLocaleString("es-ES")} kg
+              </p>
+            </div>
+            <div className="rounded-2xl bg-slate-950/70 p-4">
+              <Layers3 className="h-5 w-5 text-emerald-300" />
+              <p className="mt-3 text-xs text-slate-500">Series completadas</p>
+              <p className="mt-1 text-xl font-bold">
+                {report.weeklyBrief.completedSets}
+              </p>
+            </div>
+            <div className="rounded-2xl bg-slate-950/70 p-4">
+              <Clock3 className="h-5 w-5 text-emerald-300" />
+              <p className="mt-3 text-xs text-slate-500">Tiempo entrenado</p>
+              <p className="mt-1 text-xl font-bold">
+                {report.weeklyBrief.durationMinutes} min
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <Card className="border-slate-800 bg-slate-900 text-white">
         <CardHeader>

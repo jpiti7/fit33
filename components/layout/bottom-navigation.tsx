@@ -9,6 +9,8 @@ import {
   Dumbbell,
   House,
   TrendingUp,
+  Trophy,
+  Camera,
   UserRound,
   type LucideIcon,
 } from "lucide-react";
@@ -27,6 +29,8 @@ const navigationItems: NavigationItem[] = [
   { label: "Coach", href: "/coach", icon: Bot, mobile: true },
   { label: "Nutrición", href: "/nutricion", icon: Apple, mobile: true },
   { label: "Progreso", href: "/progreso", icon: TrendingUp },
+  { label: "Logros", href: "/logros", icon: Trophy },
+  { label: "Fotos", href: "/progreso/fotos", icon: Camera },
   { label: "Perfil", href: "/perfil", icon: UserRound, mobile: true },
 ];
 

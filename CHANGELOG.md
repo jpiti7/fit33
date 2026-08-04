@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.0.0]
+
+### Added
+
+- Informe semanal ampliado del Coach Fit33.
+- Sistema de logros, nivel y puntos.
+- Fotos privadas de progreso en Supabase Storage.
+- Nueva experiencia de progreso con línea temporal.
+- Migración `005_smart_progress.sql`.
+
+# Changelog
+
 ## [1.2.2]
 
 ### Added

@@ -76,3 +76,10 @@ El motor de reglas analiza adherencia, frecuencia, volumen, progresión, peso y 
 ## Experiencia móvil
 
 Desde la versión `v1.2.3`, Fit33 incorpora navegación adaptada a iPhone, controles táctiles ampliados, modo de entrenamiento inmersivo, respuesta háptica compatible y Wake Lock opcional.
+
+## Fit33 v2.0.0
+
+- Coach semanal mejorado.
+- Logros, nivel y puntos.
+- Fotos privadas de progreso.
+- Rutas `/logros` y `/progreso/fotos`.

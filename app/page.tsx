@@ -72,6 +72,31 @@ export default async function Home() {
           </div>
         )}
 
+        <section className="mb-8 grid gap-4 sm:grid-cols-2">
+          <Link
+            href="/logros"
+            className="rounded-3xl border border-slate-800 bg-slate-900 p-5 transition hover:border-emerald-400/40"
+          >
+            <p className="text-sm font-semibold text-emerald-300">Fit33 v2</p>
+            <h2 className="mt-2 text-xl font-bold">Logros y nivel</h2>
+            <p className="mt-2 text-sm text-slate-400">
+              Convierte la constancia y la progresión en objetivos visibles.
+            </p>
+          </Link>
+          <Link
+            href="/progreso/fotos"
+            className="rounded-3xl border border-slate-800 bg-slate-900 p-5 transition hover:border-emerald-400/40"
+          >
+            <p className="text-sm font-semibold text-emerald-300">
+              Progreso visual
+            </p>
+            <h2 className="mt-2 text-xl font-bold">Fotos privadas</h2>
+            <p className="mt-2 text-sm text-slate-400">
+              Construye una línea temporal visual protegida por tu cuenta.
+            </p>
+          </Link>
+        </section>
+
         <DashboardData />
       </div>
     </main>

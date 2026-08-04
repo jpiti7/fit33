@@ -98,6 +98,13 @@ export function buildCoachReport(context: CoachContext): CoachReport {
     completedWorkouts: completed,
     adherencePercent,
     nextWorkout: chooseNextWorkout(context),
+    weeklyBrief: {
+      volume: context.analytics.week.current.volume,
+      durationMinutes: context.analytics.week.current.durationMinutes,
+      completedSets: context.analytics.week.current.completedSets,
+      strongestExercise:
+        context.analytics.personalRecords[0]?.exerciseName ?? null,
+    },
     recommendations: recommendations.slice(0, 8),
   };
 }
