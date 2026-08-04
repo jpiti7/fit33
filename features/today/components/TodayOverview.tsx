@@ -3,6 +3,7 @@ import {
   Apple,
   Bot,
   CalendarDays,
+  TrendingUp,
   Flame,
   HeartPulse,
   Target,
@@ -128,6 +129,53 @@ export function TodayOverview({ data }: { data: TodayData }) {
         initialAmount={data.hydration.amountMl}
         target={data.hydration.targetMl}
       />
+
+      <section className="grid gap-4 lg:grid-cols-2">
+        <article className="rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-5">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-sm text-cyan-100/70">Predicción de objetivo</p>
+              <p className="mt-2 text-2xl font-bold">
+                {data.predictions.weight.estimatedWeeks !== null
+                  ? `${data.predictions.weight.estimatedWeeks} semanas`
+                  : "Tendencia en formación"}
+              </p>
+              <p className="mt-2 text-sm text-cyan-100/70">
+                {data.predictions.weight.message}
+              </p>
+            </div>
+            <TrendingUp className="h-7 w-7 text-cyan-300" />
+          </div>
+          <Link
+            href="/predicciones"
+            className="mt-4 inline-block font-semibold text-cyan-200"
+          >
+            Ver predicciones →
+          </Link>
+        </article>
+
+        <article className="rounded-3xl border border-amber-400/20 bg-amber-400/10 p-5">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-sm text-amber-100/70">Retos semanales</p>
+              <p className="mt-2 text-2xl font-bold">
+                {data.challenges.completed}/{data.challenges.total}
+              </p>
+              <p className="mt-2 text-sm text-amber-100/70">
+                Completa los retos de entrenamiento, nutrición, agua y
+                recuperación.
+              </p>
+            </div>
+            <Trophy className="h-7 w-7 text-amber-300" />
+          </div>
+          <Link
+            href="/retos"
+            className="mt-4 inline-block font-semibold text-amber-200"
+          >
+            Abrir retos →
+          </Link>
+        </article>
+      </section>
 
       <section className="rounded-3xl border border-violet-400/20 bg-violet-400/10 p-5">
         <div className="flex items-start gap-4">

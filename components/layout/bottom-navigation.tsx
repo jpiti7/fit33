@@ -14,6 +14,7 @@ import {
   CalendarDays,
   MessageCircle,
   HeartPulse,
+  Activity,
   UserRound,
   type LucideIcon,
 } from "lucide-react";
@@ -34,6 +35,7 @@ const navigationItems: NavigationItem[] = [
   { label: "Progreso", href: "/progreso", icon: TrendingUp },
   { label: "Plan", href: "/planificacion", icon: CalendarDays },
   { label: "Recuperación", href: "/recuperacion", icon: HeartPulse },
+  { label: "Salud", href: "/salud", icon: Activity },
   { label: "Coach informe", href: "/coach", icon: Bot },
   { label: "Logros", href: "/logros", icon: Trophy },
   { label: "Fotos", href: "/progreso/fotos", icon: Camera },

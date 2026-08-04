@@ -148,6 +148,17 @@
 - Persistencia de menús y listas mediante Supabase con RLS.
 - Tests unitarios del planificador nutricional.
 
+## [5.0.0]
+
+### Added
+
+- Base nativa iOS mediante Capacitor.
+- Conexión con Apple Health/HealthKit.
+- Sincronización de pasos, sueño, pulso, peso, calorías activas y entrenamientos.
+- Nueva pantalla `/salud`.
+- Persistencia privada de agregados diarios con RLS.
+- Plantilla Swift e instrucciones de Xcode.
+
 ## [4.0.0]
 
 ### Added
@@ -166,3 +177,18 @@
 - La pantalla Hoy muestra recuperación y adaptación semanal.
 - La planificación indica sesiones de volumen reducido.
 - Versión del proyecto actualizada a 4.0.0.
+
+## [5.0.0-web]
+
+### Added
+
+- Predicción orientativa de fecha de objetivo de peso.
+- Proyección de fuerza a cuatro semanas por ejercicio.
+- Retos semanales de entrenamiento, proteína, hidratación y recuperación.
+- Nuevas rutas `/predicciones` y `/retos`.
+- Integración de predicciones y retos en la pantalla Hoy.
+- Tests unitarios para predicciones y retos.
+
+### Changed
+
+- Apple Health queda preparado pero pospuesto hasta disponer de un entorno Mac/Xcode.

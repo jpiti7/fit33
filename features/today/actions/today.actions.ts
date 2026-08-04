@@ -2,8 +2,10 @@
 
 import { getAchievementSummaryAction } from "@/features/achievements";
 import { getCoachReportAction } from "@/features/coach";
+import { getChallengeSummaryAction } from "@/features/challenges";
 import { getNutritionDayAction } from "@/features/nutrition";
 import { getWeeklyPlanAction } from "@/features/planner";
+import { getPredictionSummaryAction } from "@/features/predictions";
 import { getLatestRecoveryAction } from "@/features/recovery";
 import {
   getHydrationDayAction,
@@ -21,6 +23,8 @@ export async function getTodayDataAction(): Promise<TodayData> {
     plan,
     achievements,
     recovery,
+    predictions,
+    challenges,
   ] = await Promise.all([
     getPreferencesAction(),
     getCoachReportAction(),
@@ -29,6 +33,8 @@ export async function getTodayDataAction(): Promise<TodayData> {
     getWeeklyPlanAction(),
     getAchievementSummaryAction(),
     getLatestRecoveryAction(),
+    getPredictionSummaryAction(),
+    getChallengeSummaryAction(),
   ]);
 
   return {
@@ -39,5 +45,7 @@ export async function getTodayDataAction(): Promise<TodayData> {
     plan,
     achievements,
     recovery,
+    predictions,
+    challenges,
   };
 }
