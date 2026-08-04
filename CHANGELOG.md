@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.1]
+
+### Added
+
+- Manifiesto PWA para Fit33.
+- Iconos F33 para iPhone y navegadores.
+- Metadatos Apple Web App y modo standalone.
+- Página de instalación `/instalar`.
+- Compatibilidad con zonas seguras del iPhone.
+
 ## [1.1.1]
 
 ### Added

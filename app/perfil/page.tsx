@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { logout } from "@/app/login/actions";
 
 const profileData = [
@@ -48,6 +50,13 @@ export default function ProfilePage() {
         >
           Editar perfil
         </button>
+
+        <Link
+          href="/instalar"
+          className="mt-4 block w-full rounded-xl border border-emerald-400/40 bg-emerald-400/5 px-5 py-3 text-center font-semibold text-emerald-300 transition hover:bg-emerald-400/10"
+        >
+          Instalar Fit33 en iPhone
+        </Link>
 
         <form action={logout} className="mt-4">
           <button
