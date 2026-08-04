@@ -14,7 +14,7 @@ export default function InstallPage() {
         </Link>
 
         <header className="mt-8">
-          <div className="flex h-20 w-20 items-center justify-center rounded-[1.4rem] bg-emerald-400 text-2xl font-black tracking-tight text-slate-950 shadow-lg shadow-emerald-400/20">
+          <div className="flex h-20 w-20 items-center justify-center rounded-[1.4rem] border border-emerald-400 bg-slate-950 text-2xl font-black tracking-tight text-emerald-400 shadow-lg shadow-emerald-400/10">
             F33
           </div>
 

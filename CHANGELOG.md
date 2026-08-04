@@ -147,3 +147,22 @@
 - Lista de la compra automática, agrupada y editable.
 - Persistencia de menús y listas mediante Supabase con RLS.
 - Tests unitarios del planificador nutricional.
+
+## [4.0.0]
+
+### Added
+
+- Check-in diario y puntuación de recuperación.
+- Planificador adaptativo según fatiga y recuperación.
+- Proveedor opcional de OpenAI para el Coach conversacional.
+- Fallback automático al motor privado de reglas.
+- Nueva ruta `/recuperacion`.
+- Test unitario del motor de recuperación.
+- Migración `008_v4_intelligence.sql` con RLS.
+
+### Changed
+
+- Logo e iconos de Fit33 con colores invertidos.
+- La pantalla Hoy muestra recuperación y adaptación semanal.
+- La planificación indica sesiones de volumen reducido.
+- Versión del proyecto actualizada a 4.0.0.

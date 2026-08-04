@@ -4,6 +4,7 @@ import { getAchievementSummaryAction } from "@/features/achievements";
 import { getCoachReportAction } from "@/features/coach";
 import { getNutritionDayAction } from "@/features/nutrition";
 import { getWeeklyPlanAction } from "@/features/planner";
+import { getLatestRecoveryAction } from "@/features/recovery";
 import {
   getHydrationDayAction,
   getPreferencesAction,
@@ -12,15 +13,31 @@ import type { TodayData } from "@/features/today/types";
 
 export async function getTodayDataAction(): Promise<TodayData> {
   const date = new Date().toISOString().slice(0, 10);
-  const [preferences, coach, nutrition, hydration, plan, achievements] =
-    await Promise.all([
-      getPreferencesAction(),
-      getCoachReportAction(),
-      getNutritionDayAction(date),
-      getHydrationDayAction(date),
-      getWeeklyPlanAction(),
-      getAchievementSummaryAction(),
-    ]);
+  const [
+    preferences,
+    coach,
+    nutrition,
+    hydration,
+    plan,
+    achievements,
+    recovery,
+  ] = await Promise.all([
+    getPreferencesAction(),
+    getCoachReportAction(),
+    getNutritionDayAction(date),
+    getHydrationDayAction(date),
+    getWeeklyPlanAction(),
+    getAchievementSummaryAction(),
+    getLatestRecoveryAction(),
+  ]);
 
-  return { preferences, coach, nutrition, hydration, plan, achievements };
+  return {
+    preferences,
+    coach,
+    nutrition,
+    hydration,
+    plan,
+    achievements,
+    recovery,
+  };
 }

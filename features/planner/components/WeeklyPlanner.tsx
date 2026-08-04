@@ -1,11 +1,19 @@
 import Link from "next/link";
-import { CalendarDays, Moon, Play } from "lucide-react";
+import { CalendarDays, Gauge, Moon, Play } from "lucide-react";
 
 import type { WeeklyPlan } from "@/features/planner/types";
 
 export function WeeklyPlanner({ plan }: { plan: WeeklyPlan }) {
   return (
     <div className="space-y-4">
+      <div className="rounded-3xl border border-emerald-400/20 bg-emerald-400/10 p-5">
+        <div className="flex items-center gap-3">
+          <Gauge className="h-5 w-5 text-emerald-300" />
+          <p className="font-bold">Recuperación {plan.recoveryScore}/100</p>
+        </div>
+        <p className="mt-2 text-sm text-slate-300">{plan.adaptation}</p>
+      </div>
+
       {plan.sessions.map((session) => (
         <article
           key={`${session.date}-${session.slug}`}
@@ -16,7 +24,14 @@ export function WeeklyPlanner({ plan }: { plan: WeeklyPlan }) {
               <p className="capitalize text-sm font-semibold text-emerald-300">
                 {session.day} · {session.date}
               </p>
-              <h2 className="mt-2 text-xl font-bold">{session.type}</h2>
+              <div className="mt-2 flex flex-wrap items-center gap-2">
+                <h2 className="text-xl font-bold">{session.type}</h2>
+                {session.intensity === "reduced" && (
+                  <span className="rounded-full bg-amber-400/10 px-2 py-1 text-xs font-semibold text-amber-300">
+                    Volumen reducido
+                  </span>
+                )}
+              </div>
               <p className="mt-1 text-sm text-slate-400">{session.focus}</p>
               <p className="mt-3 text-sm text-slate-300">{session.reason}</p>
             </div>

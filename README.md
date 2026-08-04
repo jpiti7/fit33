@@ -77,3 +77,20 @@ Fit33 v3.1.0 incorpora:
 - persistencia privada en Supabase mediante RLS.
 
 Antes de usar el módulo debe ejecutarse `database/migrations/007_meal_planner.sql`.
+
+## Fit33 v4.0
+
+La versión 4 añade recuperación diaria, planificación adaptativa y un Coach híbrido. El motor privado de reglas continúa funcionando siempre; la integración con OpenAI es opcional y se activa exclusivamente en el servidor mediante `OPENAI_API_KEY`.
+
+### Recuperación
+
+Abre `/recuperacion` para registrar sueño, energía, estrés y dolor muscular. Fit33 calcula una puntuación de 0 a 100 y adapta la planificación semanal.
+
+### Coach IA opcional
+
+```env
+OPENAI_API_KEY=tu_clave_privada
+OPENAI_MODEL=gpt-5-mini
+```
+
+Nunca expongas `OPENAI_API_KEY` con el prefijo `NEXT_PUBLIC_`.

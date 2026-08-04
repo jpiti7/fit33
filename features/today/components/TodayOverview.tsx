@@ -1,5 +1,13 @@
 import Link from "next/link";
-import { Apple, Bot, CalendarDays, Flame, Target, Trophy } from "lucide-react";
+import {
+  Apple,
+  Bot,
+  CalendarDays,
+  Flame,
+  HeartPulse,
+  Target,
+  Trophy,
+} from "lucide-react";
 
 import { HydrationCard } from "@/features/today/components/HydrationCard";
 import type { TodayData } from "@/features/today/types";
@@ -92,6 +100,27 @@ export function TodayOverview({ data }: { data: TodayData }) {
             Registrar comida
           </Link>
         </article>
+      </section>
+
+      <section className="rounded-3xl border border-emerald-400/20 bg-slate-900 p-5">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-sm text-slate-400">Recuperación diaria</p>
+            <p className="mt-2 text-2xl font-bold">
+              {data.recovery ? `${data.recovery.score}/100` : "Sin check-in"}
+            </p>
+            <p className="mt-1 text-sm text-slate-400">
+              {data.plan.adaptation}
+            </p>
+          </div>
+          <HeartPulse className="h-7 w-7 text-emerald-300" />
+        </div>
+        <Link
+          href="/recuperacion"
+          className="mt-5 flex min-h-12 items-center justify-center rounded-2xl border border-emerald-400/30 font-semibold text-emerald-200"
+        >
+          {data.recovery ? "Actualizar check-in" : "Registrar recuperación"}
+        </Link>
       </section>
 
       <HydrationCard

@@ -223,3 +223,20 @@ Estado: completado
 - Hápticos compatibles.
 - Wake Lock opcional.
 - Optimización táctil para iPhone.
+
+---
+
+## v4.0 — Inteligencia adaptativa
+
+Estado: completado
+
+- Recuperación diaria.
+- Planificación adaptativa.
+- Coach híbrido con proveedor opcional.
+- Branding invertido.
+
+Pendiente para futuras versiones:
+
+- Apple Health y Health Connect.
+- Web Push programado desde backend.
+- Analítica longitudinal avanzada de recuperación.

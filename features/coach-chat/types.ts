@@ -8,5 +8,5 @@ export type CoachChatMessage = {
 export type CoachChatResponse = {
   answer: string;
   suggestions: string[];
-  source: "rules";
+  source: "rules" | "ai";
 };

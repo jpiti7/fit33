@@ -139,7 +139,7 @@ export function InstallApp() {
     <div className="space-y-6">
       <Card className="border-slate-800 bg-slate-900 text-white">
         <CardHeader>
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-400 text-xl font-black text-slate-950">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-emerald-400 bg-slate-950 text-xl font-black text-emerald-400">
             F33
           </div>
 

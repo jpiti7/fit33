@@ -2,6 +2,7 @@ import type { AchievementSummary } from "@/features/achievements";
 import type { CoachReport } from "@/features/coach";
 import type { NutritionDay } from "@/features/nutrition";
 import type { WeeklyPlan } from "@/features/planner";
+import type { RecoveryCheckin } from "@/features/recovery";
 import type { HydrationDay, UserPreferences } from "@/features/settings";
 
 export type TodayData = {
@@ -11,4 +12,5 @@ export type TodayData = {
   hydration: HydrationDay;
   plan: WeeklyPlan;
   achievements: AchievementSummary;
+  recovery: RecoveryCheckin | null;
 };

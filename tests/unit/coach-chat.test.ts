@@ -12,7 +12,11 @@ describe("Coach conversacional", () => {
         weeklyTarget: 4,
         completedWorkouts: 2,
         adherencePercent: 50,
-        nextWorkout: { type: "Pull", slug: "pull", reason: "Equilibrar" },
+        nextWorkout: {
+          type: "Pull",
+          slug: "pull",
+          reason: "Equilibrar",
+        },
         weeklyBrief: {
           volume: 0,
           durationMinutes: 0,
@@ -24,7 +28,13 @@ describe("Coach conversacional", () => {
       nutrition: {
         date: "2026-08-04",
         logs: [],
-        totals: { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 },
+        totals: {
+          calories: 0,
+          protein: 0,
+          carbs: 0,
+          fat: 0,
+          fiber: 0,
+        },
         targets: {
           calories: 2300,
           protein: 180,
@@ -43,9 +53,12 @@ describe("Coach conversacional", () => {
             slug: "pull",
             focus: "Espalda",
             reason: "Equilibrar",
+            intensity: "normal",
           },
         ],
         recoveryDays: [],
+        recoveryScore: 80,
+        adaptation: "Plan estándar según tu objetivo semanal.",
       },
       preferences: {
         userId: "1",

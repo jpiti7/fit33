@@ -13,6 +13,7 @@ import {
   Camera,
   CalendarDays,
   MessageCircle,
+  HeartPulse,
   UserRound,
   type LucideIcon,
 } from "lucide-react";
@@ -32,6 +33,7 @@ const navigationItems: NavigationItem[] = [
   { label: "Nutrición", href: "/nutricion", icon: Apple, mobile: true },
   { label: "Progreso", href: "/progreso", icon: TrendingUp },
   { label: "Plan", href: "/planificacion", icon: CalendarDays },
+  { label: "Recuperación", href: "/recuperacion", icon: HeartPulse },
   { label: "Coach informe", href: "/coach", icon: Bot },
   { label: "Logros", href: "/logros", icon: Trophy },
   { label: "Fotos", href: "/progreso/fotos", icon: Camera },
