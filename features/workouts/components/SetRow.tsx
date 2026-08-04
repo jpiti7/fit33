@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { WorkoutFormValues } from "@/features/workouts/validations/workout.schema";
+import { triggerHaptic } from "@/lib/haptics";
 
 type SetRowProps = {
   exerciseIndex: number;
@@ -36,7 +37,7 @@ export function SetRow({
   const setErrors = errors.exercises?.[exerciseIndex]?.sets?.[setIndex];
 
   return (
-    <div className="grid grid-cols-[40px_1fr_1fr_1fr_42px_40px] items-start gap-2">
+    <div className="grid grid-cols-[36px_1fr_1fr_1fr_48px_40px] items-start gap-2 sm:grid-cols-[40px_1fr_1fr_1fr_42px_40px]">
       <div className="flex h-10 items-center justify-center rounded-md bg-slate-950 text-sm font-semibold text-slate-400">
         {setIndex + 1}
       </div>
@@ -105,10 +106,13 @@ export function SetRow({
               const nextValue = !field.value;
               field.onChange(nextValue);
               if (nextValue) {
+                triggerHaptic("success");
                 onCompleted?.();
+              } else {
+                triggerHaptic("light");
               }
             }}
-            className={`flex h-10 w-10 items-center justify-center rounded-md border text-sm font-bold transition ${
+            className={`flex h-12 w-12 items-center justify-center rounded-xl border text-base font-bold transition active:scale-95 sm:h-10 sm:w-10 sm:rounded-md sm:text-sm ${
               field.value
                 ? "border-emerald-400 bg-emerald-400 text-slate-950"
                 : "border-slate-700 bg-slate-950 text-slate-500 hover:border-emerald-400 hover:text-emerald-400"

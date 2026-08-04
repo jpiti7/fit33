@@ -28,6 +28,7 @@ import {
   workoutFormSchema,
   type WorkoutFormValues,
 } from "@/features/workouts/validations/workout.schema";
+import { triggerHaptic } from "@/lib/haptics";
 import { enqueueWorkout } from "@/lib/offline/queue";
 import type { WorkoutTemplate } from "@/types/workout";
 
@@ -170,6 +171,7 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
         values,
       });
       session.completeSession();
+      triggerHaptic("success");
       setSavedWorkout({
         success: true,
         queued: true,
@@ -203,6 +205,7 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
       }
 
       session.completeSession();
+      triggerHaptic("success");
       setSavedWorkout(result);
     } catch {
       try {
@@ -224,6 +227,7 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
       return;
     }
 
+    triggerHaptic("warning");
     session.cancelSession();
     router.push("/entrenos");
   }
@@ -255,23 +259,23 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
 
         <CardContent>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-xl bg-slate-950 p-4">
+            <div className="rounded-xl bg-slate-950 p-3 sm:p-4">
               <p className="text-xs text-slate-500">Duración</p>
-              <p className="mt-1 text-xl font-bold">
+              <p className="mt-1 text-lg font-bold sm:text-xl">
                 {savedWorkout.durationMinutes} min
               </p>
             </div>
 
-            <div className="rounded-xl bg-slate-950 p-4">
+            <div className="rounded-xl bg-slate-950 p-3 sm:p-4">
               <p className="text-xs text-slate-500">Ejercicios</p>
-              <p className="mt-1 text-xl font-bold">
+              <p className="mt-1 text-lg font-bold sm:text-xl">
                 {savedWorkout.completedExercises}
               </p>
             </div>
 
-            <div className="rounded-xl bg-slate-950 p-4">
+            <div className="rounded-xl bg-slate-950 p-3 sm:p-4">
               <p className="text-xs text-slate-500">Series</p>
-              <p className="mt-1 text-xl font-bold">
+              <p className="mt-1 text-lg font-bold sm:text-xl">
                 {savedWorkout.completedSets}
               </p>
             </div>
@@ -317,7 +321,10 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="workout-focus space-y-4 pb-28 sm:space-y-6 sm:pb-6"
+    >
       <SessionHeader
         elapsedSeconds={session.elapsedSeconds}
         status={session.status}
@@ -331,15 +338,17 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
         onCancel={cancelWorkout}
       />
 
-      <Card className="border-slate-800 bg-slate-900 text-white">
-        <CardHeader>
+      <Card className="border-slate-800 bg-gradient-to-br from-slate-900 to-slate-900/70 text-white">
+        <CardHeader className="px-4 py-5 sm:px-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p className="text-sm font-semibold text-emerald-400">
                 {template.day}
               </p>
 
-              <CardTitle className="mt-1 text-3xl">{template.type}</CardTitle>
+              <CardTitle className="mt-1 text-2xl sm:text-3xl">
+                {template.type}
+              </CardTitle>
 
               <p className="mt-2 text-sm text-slate-400">
                 {template.description}
@@ -354,8 +363,8 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
           </div>
         </CardHeader>
 
-        <CardContent>
-          <div className="grid gap-3 sm:grid-cols-3">
+        <CardContent className="px-4 pb-5 sm:px-6">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
             <div className="rounded-xl bg-slate-950 p-4">
               <p className="text-xs text-slate-500">Ejercicios</p>
               <p className="mt-1 text-xl font-bold">{exercises.length}</p>
@@ -422,7 +431,8 @@ export function WorkoutForm({ template }: WorkoutFormProps) {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="mt-6 w-full bg-emerald-400 text-slate-950 hover:bg-emerald-300"
+            onClick={() => triggerHaptic("light")}
+            className="mt-6 min-h-14 w-full rounded-2xl bg-emerald-400 text-base font-bold text-slate-950 shadow-lg shadow-emerald-950/20 hover:bg-emerald-300 active:scale-[0.99]"
           >
             {isSubmitting ? (
               <>

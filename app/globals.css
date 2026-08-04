@@ -146,3 +146,46 @@ body {
 body {
   padding-top: env(safe-area-inset-top);
 }
+
+/* Fit33 mobile experience */
+.mobile-tab-bar {
+  padding-bottom: max(0.35rem, env(safe-area-inset-bottom));
+}
+
+@media (max-width: 767px) {
+  input,
+  textarea,
+  select,
+  button,
+  a {
+    touch-action: manipulation;
+  }
+
+  .workout-focus input {
+    min-height: 3rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .workout-focus textarea {
+    font-size: 1rem;
+  }
+
+  .workout-session-header {
+    margin-inline: -0.15rem;
+  }
+}
+
+@media (display-mode: standalone) {
+  body {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  input,
+  textarea {
+    user-select: text;
+    -webkit-user-select: text;
+  }
+}

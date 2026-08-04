@@ -192,3 +192,13 @@ Estado: en desarrollo
 - Catálogo de alimentos.
 - Plantillas y planificación semanal.
 - Integración con Coach Fit33.
+
+## v1.2.3 — Experiencia móvil
+
+Estado: completado
+
+- Navegación móvil nativa.
+- Modo entrenamiento inmersivo.
+- Hápticos compatibles.
+- Wake Lock opcional.
+- Optimización táctil para iPhone.

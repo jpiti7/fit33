@@ -55,8 +55,8 @@ export function ExerciseCard({
   }
 
   return (
-    <Card className="border-slate-800 bg-slate-900 text-white">
-      <CardHeader>
+    <Card className="overflow-hidden border-slate-800 bg-slate-900 text-white shadow-lg shadow-black/10">
+      <CardHeader className="px-4 pb-4 pt-5 sm:px-6">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <CardTitle>{name}</CardTitle>
@@ -72,8 +72,8 @@ export function ExerciseCard({
         </div>
       </CardHeader>
 
-      <CardContent>
-        <div className="mb-2 grid grid-cols-[40px_1fr_1fr_1fr_42px_40px] gap-2 text-center text-xs font-semibold uppercase tracking-wide text-slate-500">
+      <CardContent className="px-3 pb-5 sm:px-6">
+        <div className="mb-2 grid grid-cols-[36px_1fr_1fr_1fr_48px_40px] sm:grid-cols-[40px_1fr_1fr_1fr_42px_40px] gap-2 text-center text-xs font-semibold uppercase tracking-wide text-slate-500">
           <span>Serie</span>
           <span>Kg</span>
           <span>Reps</span>
