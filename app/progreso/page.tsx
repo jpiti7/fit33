@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Camera, ChevronRight, Trophy } from "lucide-react";
+import { Camera, ChevronRight, Scale, Trophy } from "lucide-react";
 
 import { createClient } from "@/lib/supabase/server";
 
@@ -75,6 +75,27 @@ export default async function ProgressPage() {
               <p className="mt-2 text-2xl font-black">{measurement.value}</p>
             </article>
           ))}
+        </section>
+
+        <section className="mt-6 rounded-3xl border border-emerald-400/20 bg-emerald-400/10 p-6">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold text-emerald-300">
+                Nuevo registro
+              </p>
+              <h2 className="mt-1 text-xl font-bold">¿Has pesado hoy?</h2>
+              <p className="mt-2 text-sm text-emerald-100/70">
+                Registra tu peso y, si quieres, cintura y grasa corporal.
+              </p>
+            </div>
+            <Scale className="h-8 w-8 shrink-0 text-emerald-300" />
+          </div>
+          <Link
+            href="/registrar-peso"
+            className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-emerald-400 px-5 font-bold text-slate-950 transition hover:bg-emerald-300 sm:w-auto"
+          >
+            + Registrar peso
+          </Link>
         </section>
 
         <section className="mt-6 grid gap-4 sm:grid-cols-2">

@@ -8,6 +8,7 @@ import {
   HeartPulse,
   Target,
   Trophy,
+  Scale,
 } from "lucide-react";
 
 import { HydrationCard } from "@/features/today/components/HydrationCard";
@@ -59,6 +60,26 @@ export function TodayOverview({ data }: { data: TodayData }) {
             <p className="text-xs text-slate-400">Adherencia</p>
           </div>
         </div>
+      </section>
+
+      <section className="rounded-3xl border border-emerald-400/20 bg-slate-900 p-5">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-sm text-slate-400">Control de peso</p>
+            <h2 className="mt-1 text-2xl font-bold">Registrar peso</h2>
+            <p className="mt-2 text-sm text-slate-400">
+              Añade tu peso, cintura y grasa corporal para mantener actualizado
+              tu progreso.
+            </p>
+          </div>
+          <Scale className="h-7 w-7 shrink-0 text-emerald-300" />
+        </div>
+        <Link
+          href="/registrar-peso"
+          className="mt-5 flex min-h-12 items-center justify-center rounded-2xl bg-emerald-400 font-bold text-slate-950"
+        >
+          + Registrar peso
+        </Link>
       </section>
 
       <section className="grid gap-4 lg:grid-cols-2">
