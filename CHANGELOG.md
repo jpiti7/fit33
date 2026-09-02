@@ -1,3 +1,10 @@
+## [8.0.0] - Coach Adaptativo 2.0
+
+- Añadido centro de decisiones del Coach Autónomo.
+- Añadidas vistas previas de reorganización, reducción de sesión, nutrición y recuperación.
+- Añadida confirmación explícita antes de continuar con una propuesta.
+- Mantenida la compatibilidad con Adaptive Engine y rutinas alternas.
+
 # Changelog
 
 ## 7.0.0 - Coach Autónomo
