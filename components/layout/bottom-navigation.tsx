@@ -32,6 +32,7 @@ const navigationItems: NavigationItem[] = [
   { label: "Entrenos", href: "/entrenos", icon: Dumbbell, mobile: true },
   { label: "Análisis", href: "/analiticas", icon: BarChart3 },
   { label: "Coach", href: "/coach/chat", icon: MessageCircle, mobile: true },
+  { label: "Autónomo", href: "/coach/autonomo", icon: Sparkles, mobile: true },
   { label: "Nutrición", href: "/nutricion", icon: Apple, mobile: true },
   { label: "Progreso", href: "/progreso", icon: TrendingUp },
   { label: "Plan", href: "/planificacion", icon: CalendarDays },
@@ -63,7 +64,7 @@ export function BottomNavigation() {
     <>
       {!isWorkoutSession && (
         <nav className="mobile-tab-bar fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-slate-950/90 px-2 backdrop-blur-xl md:hidden">
-          <div className="mx-auto grid max-w-lg grid-cols-6">
+          <div className="mx-auto grid max-w-lg grid-cols-7">
             {mobileItems.map((item) => {
               const active = isItemActive(pathname, item.href);
               const Icon = item.icon;

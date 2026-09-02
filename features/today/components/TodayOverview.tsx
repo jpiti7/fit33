@@ -223,6 +223,30 @@ export function TodayOverview({ data }: { data: TodayData }) {
         </article>
       </section>
 
+      <section className="rounded-3xl border border-violet-400/20 bg-violet-400/5 p-5">
+        <div className="flex items-start gap-4">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-violet-300 text-slate-950">
+            <Sparkles className="h-6 w-6" />
+          </span>
+          <div className="flex-1">
+            <p className="text-sm text-violet-200/70">Coach autónomo</p>
+            <h2 className="mt-1 text-xl font-bold">
+              Fit33 puede proponerte acciones
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-slate-300">
+              Detecta desviaciones en entrenamiento, recuperación y nutrición y
+              te lleva al flujo adecuado para confirmar el cambio.
+            </p>
+            <Link
+              href="/coach/autonomo"
+              className="mt-4 inline-flex min-h-11 items-center rounded-2xl bg-violet-300 px-4 font-bold text-slate-950"
+            >
+              Revisar propuestas →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="rounded-3xl border border-violet-400/20 bg-violet-400/10 p-5">
         <div className="flex items-start gap-4">
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-violet-300 text-slate-950">

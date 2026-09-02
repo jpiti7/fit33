@@ -1,11 +1,18 @@
+# Changelog
+
+## 7.0.0 - Coach Autónomo
+
+- Motor proactivo de propuestas.
+- Recovery, adherencia y nutrición conectados al Coach.
+- Nueva ruta `/coach/autonomo`.
+- Confirmación explícita antes de cualquier cambio.
+
 # Fit33 v5.0.0 — Rotación inteligente de rutinas
 
 - 3 variantes por cada tipo de entrenamiento.
 - Rotación automática semanal A → B → C → A.
 - Mantiene el mismo reparto semanal y objetivos musculares.
 - Añade test automático para comprobar la rotación.
-
-# Changelog
 
 ## [3.0.0]
 
