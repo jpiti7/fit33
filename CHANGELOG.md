@@ -1,3 +1,10 @@
+# Fit33 v5.0.0 — Rotación inteligente de rutinas
+
+- 3 variantes por cada tipo de entrenamiento.
+- Rotación automática semanal A → B → C → A.
+- Mantiene el mismo reparto semanal y objetivos musculares.
+- Añade test automático para comprobar la rotación.
+
 # Changelog
 
 ## [3.0.0]
@@ -192,3 +199,11 @@
 ### Changed
 
 - Apple Health queda preparado pero pospuesto hasta disponer de un entorno Mac/Xcode.
+
+## v6.0.0 — Adaptive Engine
+
+- Nuevo motor adaptativo de entrenamiento.
+- Progresión automática de cargas según rendimiento reciente.
+- Ajuste de carga según recuperación.
+- Dashboard y navegación con acceso a Adaptive.
+- Nueva ruta `/adaptativo`.

@@ -16,6 +16,7 @@ export type WorkoutExerciseInput = {
 };
 
 export type WorkoutTemplate = {
+  variant?: number;
   type: WorkoutType;
   day: string;
   description: string;

@@ -34,13 +34,17 @@ import type { WorkoutTemplate } from "@/types/workout";
 
 type WorkoutFormProps = {
   template: WorkoutTemplate;
+  suggestedWeights?: Record<string, number | null>;
 };
 
 type SavedWorkout = Extract<FinishWorkoutResult, { success: true }> & {
   queued?: boolean;
 };
 
-function createDefaultValues(template: WorkoutTemplate): WorkoutFormValues {
+function createDefaultValues(
+  template: WorkoutTemplate,
+  suggestedWeights: Record<string, number | null> = {},
+): WorkoutFormValues {
   return {
     workoutType: template.type,
     notes: "",
@@ -50,7 +54,7 @@ function createDefaultValues(template: WorkoutTemplate): WorkoutFormValues {
       order: exerciseIndex,
       targetReps: exercise.targetReps,
       sets: Array.from({ length: exercise.targetSets }, () => ({
-        weight: 0,
+        weight: suggestedWeights[exercise.name] ?? 0,
         reps: 1,
         rir: 2,
         completed: false,
@@ -59,11 +63,14 @@ function createDefaultValues(template: WorkoutTemplate): WorkoutFormValues {
   };
 }
 
-export function WorkoutForm({ template }: WorkoutFormProps) {
+export function WorkoutForm({
+  template,
+  suggestedWeights = {},
+}: WorkoutFormProps) {
   const router = useRouter();
   const defaultValues = useMemo(
-    () => createDefaultValues(template),
-    [template],
+    () => createDefaultValues(template, suggestedWeights),
+    [template, suggestedWeights],
   );
   const [message, setMessage] = useState("");
   const [savedWorkout, setSavedWorkout] = useState<SavedWorkout | null>(null);

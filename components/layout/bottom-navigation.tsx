@@ -16,6 +16,7 @@ import {
   HeartPulse,
   Activity,
   UserRound,
+  Sparkles,
   type LucideIcon,
 } from "lucide-react";
 
@@ -36,6 +37,7 @@ const navigationItems: NavigationItem[] = [
   { label: "Plan", href: "/planificacion", icon: CalendarDays },
   { label: "Recuperación", href: "/recuperacion", icon: HeartPulse },
   { label: "Salud", href: "/salud", icon: Activity },
+  { label: "Adaptive", href: "/adaptativo", icon: Sparkles, mobile: true },
   { label: "Coach informe", href: "/coach", icon: Bot },
   { label: "Logros", href: "/logros", icon: Trophy },
   { label: "Fotos", href: "/progreso/fotos", icon: Camera },
@@ -61,7 +63,7 @@ export function BottomNavigation() {
     <>
       {!isWorkoutSession && (
         <nav className="mobile-tab-bar fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-slate-950/90 px-2 backdrop-blur-xl md:hidden">
-          <div className="mx-auto grid max-w-lg grid-cols-5">
+          <div className="mx-auto grid max-w-lg grid-cols-6">
             {mobileItems.map((item) => {
               const active = isItemActive(pathname, item.href);
               const Icon = item.icon;

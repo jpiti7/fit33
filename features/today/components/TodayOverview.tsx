@@ -9,6 +9,7 @@ import {
   Target,
   Trophy,
   Scale,
+  Sparkles,
 } from "lucide-react";
 
 import { HydrationCard } from "@/features/today/components/HydrationCard";
@@ -150,6 +151,30 @@ export function TodayOverview({ data }: { data: TodayData }) {
         initialAmount={data.hydration.amountMl}
         target={data.hydration.targetMl}
       />
+
+      <section className="rounded-3xl border border-emerald-400/20 bg-emerald-400/5 p-5">
+        <div className="flex items-start gap-4">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-400 text-slate-950">
+            <Sparkles className="h-6 w-6" />
+          </span>
+          <div className="flex-1">
+            <p className="text-sm text-emerald-200/70">Fit33 Adaptive Engine</p>
+            <h2 className="mt-1 text-xl font-bold">
+              Tu entrenamiento se adapta a ti
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-slate-300">
+              Ajustamos la sesión según recuperación, adherencia y rendimiento
+              reciente.
+            </p>
+            <Link
+              href="/adaptativo"
+              className="mt-4 inline-flex min-h-11 items-center rounded-2xl bg-emerald-400 px-4 font-bold text-slate-950"
+            >
+              Ver sesión adaptada →
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <section className="grid gap-4 lg:grid-cols-2">
         <article className="rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-5">

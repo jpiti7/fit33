@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { WORKOUT_TEMPLATES } from "@/constants/workouts";
+import { getWorkoutTemplate } from "@/constants/workouts";
 import { WorkoutForm } from "@/features/workouts/components/WorkoutForm";
+import { getAdaptiveSummaryAction } from "@/features/adaptive";
 
 type WorkoutPageProps = {
   params: Promise<{
@@ -21,13 +22,13 @@ export default async function WorkoutPage({ params }: WorkoutPageProps) {
   const { tipo } = await params;
   const workoutType = slugToType[tipo];
 
-  const template = WORKOUT_TEMPLATES.find(
-    (workout) => workout.type === workoutType,
-  );
+  const template = workoutType ? getWorkoutTemplate(workoutType) : undefined;
 
   if (!template) {
     notFound();
   }
+
+  const adaptive = await getAdaptiveSummaryAction(workoutType);
 
   return (
     <main className="min-h-screen bg-slate-950 px-3 pb-6 pt-[max(0.75rem,env(safe-area-inset-top))] text-white sm:px-6 sm:py-8 lg:px-8">
@@ -40,7 +41,15 @@ export default async function WorkoutPage({ params }: WorkoutPageProps) {
         </Link>
 
         <div className="mt-3 sm:mt-6">
-          <WorkoutForm template={template} />
+          <WorkoutForm
+            template={template}
+            suggestedWeights={Object.fromEntries(
+              adaptive.workout.exercises.map((exercise) => [
+                exercise.name,
+                exercise.suggestedWeight,
+              ]),
+            )}
+          />
         </div>
       </div>
     </main>

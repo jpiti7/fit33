@@ -44,3 +44,24 @@ describe("Workout Service", () => {
     expect(totalVolume).toBe(1200);
   });
 });
+
+describe("rotación de rutinas", () => {
+  it("alterna variantes del mismo entrenamiento según la semana", async () => {
+    const { getWorkoutVariant } = await import("@/constants/workouts");
+    const weekOne = getWorkoutVariant("Push", new Date("2026-01-05T12:00:00Z"));
+    const weekTwo = getWorkoutVariant("Push", new Date("2026-01-12T12:00:00Z"));
+    const weekThree = getWorkoutVariant(
+      "Push",
+      new Date("2026-01-19T12:00:00Z"),
+    );
+    const weekFour = getWorkoutVariant(
+      "Push",
+      new Date("2026-01-26T12:00:00Z"),
+    );
+
+    expect(weekOne?.variant).toBe(1);
+    expect(weekTwo?.variant).toBe(2);
+    expect(weekThree?.variant).toBe(3);
+    expect(weekFour?.variant).toBe(1);
+  });
+});
